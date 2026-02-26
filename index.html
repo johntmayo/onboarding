@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Altagether – New Neighborhood Captain Onboarding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage: #6B7F5E;
+      --sage-light: #A8BA9A;
+      --cream: #F7F3EC;
+      --warm-white: #FDFAF5;
+      --charcoal: #2C2C2A;
+      --rust: #B85C38;
+      --gold: #C9952A;
+      --muted: #7A7A72;
+      --done-bg: #EFF5EC;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(255,255,255,0.015) 40px,
+        rgba(255,255,255,0.015) 80px
+      );
+    }
+    header .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage-light);
+      margin-bottom: 0.75rem;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    header p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: rgba(247,243,236,0.7);
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .progress-bar-wrap {
+      background: var(--charcoal);
+      padding: 0 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .progress-track {
+      width: 100%;
+      max-width: 560px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--sage), var(--sage-light));
+      border-radius: 99px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+    .progress-label {
+      font-size: 0.75rem;
+      color: rgba(247,243,236,0.5);
+      letter-spacing: 0.08em;
+    }
+
+    main {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .intro-note {
+      background: var(--warm-white);
+      border-left: 3px solid var(--sage);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .intro-note strong { color: var(--charcoal); }
+
+    .step {
+      background: var(--warm-white);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      border: 1.5px solid #E4DFD6;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .step.done {
+      background: var(--done-bg);
+      border-color: var(--sage-light);
+    }
+    .step.active {
+      border-color: var(--sage);
+      box-shadow: 0 4px 20px rgba(107,127,94,0.12);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #E4DFD6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+    .step.done .step-num {
+      background: var(--sage);
+      color: white;
+    }
+    .step.active .step-num {
+      background: var(--charcoal);
+      color: white;
+    }
+    .step-num .check { display: none; }
+    .step.done .step-num .check { display: block; }
+    .step.done .step-num .num { display: none; }
+
+    .step-title-wrap { flex: 1; min-width: 0; }
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .step-subtitle {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .step-chevron {
+      color: var(--muted);
+      font-size: 0.8rem;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .step.active .step-chevron { transform: rotate(180deg); }
+
+    .step-body {
+      display: none;
+      padding: 0 1.25rem 1.25rem;
+      border-top: 1px solid #E4DFD6;
+      animation: fadeIn 0.2s ease;
+    }
+    .step.active .step-body { display: block; }
+    .step.done .step-body { border-top-color: #c9d9c3; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+    .step-body p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #4A4A44;
+      margin-top: 1rem;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+      padding: 0.55rem 1rem;
+      background: var(--charcoal);
+      color: var(--cream);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+      margin-right: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .link-btn:hover { background: var(--sage); transform: translateY(-1px); }
+    .link-btn.secondary {
+      background: transparent;
+      color: var(--charcoal);
+      border: 1.5px solid #C8C3BC;
+    }
+    .link-btn.secondary:hover { background: #EDE8E0; border-color: var(--charcoal); }
+
+    .links-row { display: flex; flex-wrap: wrap; margin-top: 0.2rem; }
+
+    .note-callout {
+      background: #FFF8EC;
+      border: 1px solid #E8D9A0;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #5A4F2A;
+      margin-top: 1rem;
+    }
+    .note-callout strong { color: #3A3018; }
+
+    .mark-done-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.25rem;
+      padding: 0.55rem 1.1rem;
+      background: var(--sage);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .mark-done-btn:hover { background: #5A6E4E; transform: translateY(-1px); }
+    .step.done .mark-done-btn {
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid #C8C3BC;
+    }
+
+    .all-done {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--warm-white);
+      border-radius: 12px;
+      border: 1.5px solid var(--sage-light);
+      margin-top: 1.5rem;
+    }
+    .all-done h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--sage);
+    }
+    .all-done p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .big-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Altagether · Neighborhood Captain Program</div>
+  <h1>Welcome, Neighborhood Captain</h1>
+  <p>Complete each step below to get fully set up. Your progress saves automatically in your browser.</p>
+</header>
+
+<div class="progress-bar-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 6 steps complete</div>
+</div>
+
+<main>
+
+  <div class="intro-note">
+    <strong>Hello!</strong> Thank you for being here and a part of Altagether. Work through the steps below in order — each one takes just a few minutes. Questions? Email <strong>info@altagether.org</strong>.
+  </div>
+
+  <!-- Step 1 -->
+  <div class="step" id="step-1">
+    <div class="step-header" onclick="toggleStep(1)">
+      <div class="step-num">
+        <span class="num">1</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="step-title-wrap">
+        <div class="step-title">Add yourself to the NC Directory 💬</div>
+        <div class="step-subtitle">So other captains can find and connect with you</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <p>Add your name, neighborhood zone, and contact info to the shared directory. This is how fellow Neighborhood Captains will find you, and how the Altagether team knows who's in the network.</p>
+      <div class="links-row">
+        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1E77qmT4eGtyokaDvD2wlK3q2NeMcS4itmkbYp6Rz0qM/edit?gid=0#gid=0" target="_blank">📋 Open NC Directory</a>
+        <a class="link-btn secondary" href="https://dashboard.altagether.org/nc-directory.html" target="_blank">🔍 Search the Directory</a>
+      </div>
+      <button class="mark-done-btn" onclick="markDone(1)">✓ Mark as done</button>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step" id="step-2">
+    <div class="step-header" onclick="toggleStep(2)">
+      <div class="step-num">
+        <span class="num">2</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="step-title-wrap">
+        <div class="step-title">Sign the Community Agreements 📝</div>
+        <div class="step-subtitle">Common-sense commitments for showing up for neighbors</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <p>Every Neighborhood Captain is asked to abide by these shared commitments about how we show up for our neighbors and for each other within the context of Altagether and the NC role. It takes about 2 minutes to read and sign.</p>
+      <div class="links-row">
+        <a class="link-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/viewform?usp=dialog" target="_blank">📝 Read &amp; Sign Here</a>
+      </div>
+      <button class="mark-done-btn" onclick="markDone(2)">✓ Mark as done</button>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step" id="step-3">
+    <div class="step-header" onclick="toggleStep(3)">
+      <div class="step-num">
+        <span class="num">3</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="step-title-wrap">
+        <div class="step-title">Read: Connecting with Neighbors 🥾</div>
+        <div class="step-subtitle">Your starting point for organizing your zone</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <p>Not sure where to begin? This two-pager gives you a clear, friendly framework for reaching out to the households in your zone and building relationships from day one.</p>
+      <div class="links-row">
+        <a class="link-btn" href="https://docs.google.com/presentation/d/17ETnbnXpycrenUmUdunhMPyzSsxzbjVyUl_fkO7p6oY/edit?slide=id.g34a82007178_1_42#slide=id.g34a82007178_1_42" target="_blank">📄 Open the Two-Pager</a>
+      </div>
+      <button class="mark-done-btn" onclick="markDone(3)">✓ Mark as done</button>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step" id="step-4">
+    <div class="step-header" onclick="toggleStep(4)">
+      <div class="step-num">
+        <span class="num">4</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="step-title-wrap">
+        <div class="step-title">Check the Meetings Calendar 🌹</div>
+        <div class="step-subtitle">Optional bi-monthly Zoom calls, always recorded</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <p>NC meetings happen on the <strong>2nd and 4th Monday of each month at 7 PM</strong> over Zoom. They're optional and always recorded and recapped the next day — so there's no pressure to attend live.</p>
+      <div class="note-callout">
+        <strong>Zoom link:</strong> <a href="https://us06web.zoom.us/j/7786951799?omn=87953044461" target="_blank" style="color:#5A4F2A;">https://us06web.zoom.us/j/7786951799</a>
+      </div>
+      <div class="links-row">
+        <a class="link-btn" href="https://docs.google.com/document/d/1A0eVERltVe7Xq6BLcXNwIiI0l2mR8wYRBH1-WEezwcQ/edit?tab=t.0" target="_blank">📅 Upcoming Meeting Dates</a>
+        <a class="link-btn secondary" href="https://calendar.google.com/calendar/u/1?cid=Y180ZTNhZjAzNjBkYzMyMmI3ZjFmNTE5N2RmODRkZTExNmY3OGExOGMyYzAwODdjMTQwOGI1MTQ3Y2IzNmIyZTdkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank">🗓 Add NC Calendar</a>
+      </div>
+      <button class="mark-done-btn" onclick="markDone(4)">✓ Mark as done</button>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="step" id="step-5">
+    <div class="step-header" onclick="toggleStep(5)">
+      <div class="step-num">
+        <span class="num">5</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="step-title-wrap">
+        <div class="step-title">Join the Discord 🦜</div>
+        <div class="step-subtitle">Optional but great for staying connected</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <p>Our Discord is a shared space for chatting, trading ideas, and getting quick answers. It's nested within a broader community of Eaton Fire survivors. Once you join:</p>
+      <p>→ Message <strong>@altagether_org</strong> with your name to get added to the private NC channel.</p>
+      <div class="note-callout">
+        <strong>New to Discord?</strong> Watch the <a href="https://drive.google.com/file/d/1ITF5yi1W14jenwAS92XFO3e99W5QIzGG/view?usp=drive_link" target="_blank" style="color:#5A4F2A;">4-minute Quick-Start video</a> or browse the <a href="https://docs.google.com/document/d/1Fm9lst25aH4tgCoV7RxIARRFeLsiYiQedq5rbjjNSiM/edit?tab=t.0#heading=h.n62bhhwnkdeu" target="_blank" style="color:#5A4F2A;">full training video list</a>.
+      </div>
+      <div class="links-row">
+        <a class="link-btn" href="https://discord.com/invite/Y5atRPvc3V" target="_blank">🦜 Join the Discord</a>
+      </div>
+      <button class="mark-done-btn" onclick="markDone(5)">✓ Mark as done</button>
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="step" id="step-6">
+    <div class="step-header" onclick="toggleStep(6)">
+      <div class="step-num">
+        <span class="num">6</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="step-title-wrap">
+        <div class="step-title">Explore Resources &amp; Working Groups 🌳</div>
+        <div class="step-subtitle">Go deeper on topics that matter to your zone</div>
+      </div>
+      <div class="step-chevron">▼</div>
+    </div>
+    <div class="step-body">
+      <p>Browse meeting notes, helpful one-pagers, and resources created by other NCs in the shared Google Drive. Feel free to add your own. If you want to go deeper on a specific topic, reach out to one of our Working Groups.</p>
+      <div class="links-row">
+        <a class="link-btn" href="https://drive.google.com/drive/u/1/folders/1ZiyOCVi7lIeKD1T8Y0_FIDElNuNdA-nm" target="_blank">📁 Open Google Drive</a>
+        <a class="link-btn secondary" href="https://docs.google.com/forms/d/e/1FAIpQLSdvEGTteFPiOmV3FRRwdumpAQCJt-g-eyxPon4q5n7ZF1HY7Q/viewform" target="_blank">👥 Working Group Contact Form</a>
+      </div>
+      <button class="mark-done-btn" onclick="markDone(6)">✓ Mark as done</button>
+    </div>
+  </div>
+
+  <!-- All done -->
+  <div class="all-done" id="allDone">
+    <span class="big-emoji">🌿</span>
+    <h2>You're all set!</h2>
+    <p>Thanks for completing your onboarding. We're excited to build this together — reach out anytime at <strong>info@altagether.org</strong>.<br><br>– John, Stef &amp; the Altagether team</p>
+  </div>
+
+</main>
+
+<footer>Altagether · info@altagether.org · <a href="https://altadenawiki.com/wiki/Main_Page" target="_blank" style="color:var(--muted)">Altadena Recovery Wiki</a></footer>
+
+<script>
+  const TOTAL = 6;
+
+  function getState() {
+    try {
+      return JSON.parse(localStorage.getItem('altagether_onboarding') || '{}');
+    } catch(e) { return {}; }
+  }
+
+  function saveState(state) {
+    try { localStorage.setItem('altagether_onboarding', JSON.stringify(state)); } catch(e) {}
+  }
+
+  function toggleStep(n) {
+    const el = document.getElementById('step-' + n);
+    const isActive = el.classList.contains('active');
+    // close all
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    if (!isActive) el.classList.add('active');
+  }
+
+  function markDone(n) {
+    const state = getState();
+    const stepEl = document.getElementById('step-' + n);
+    if (stepEl.classList.contains('done')) {
+      // undo
+      delete state['done_' + n];
+      stepEl.classList.remove('done');
+      stepEl.querySelector('.mark-done-btn').textContent = '✓ Mark as done';
+    } else {
+      state['done_' + n] = true;
+      stepEl.classList.add('done');
+      stepEl.querySelector('.mark-done-btn').textContent = '↩ Mark as not done';
+      // auto-open next
+      if (n < TOTAL) {
+        stepEl.classList.remove('active');
+        setTimeout(() => {
+          const next = document.getElementById('step-' + (n+1));
+          if (next && !next.classList.contains('done')) {
+            next.classList.add('active');
+            next.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 250);
+      }
+    }
+    saveState(state);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const state = getState();
+    let done = 0;
+    for (let i = 1; i <= TOTAL; i++) { if (state['done_' + i]) done++; }
+    const pct = Math.round((done / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = done + ' of ' + TOTAL + ' steps complete';
+    document.getElementById('allDone').style.display = (done === TOTAL) ? 'block' : 'none';
+  }
+
+  function init() {
+    const state = getState();
+    let firstOpen = -1;
+    for (let i = 1; i <= TOTAL; i++) {
+      const el = document.getElementById('step-' + i);
+      if (state['done_' + i]) {
+        el.classList.add('done');
+        el.querySelector('.mark-done-btn').textContent = '↩ Mark as not done';
+      } else if (firstOpen === -1) {
+        firstOpen = i;
+      }
+    }
+    if (firstOpen !== -1) {
+      document.getElementById('step-' + firstOpen).classList.add('active');
+    }
+    updateProgress();
+  }
+
+  init();
+</script>
+</body>
+</html>
