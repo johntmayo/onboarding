@@ -5,79 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Altagether – New Neighborhood Captain Onboarding</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Port+Lligat+Sans&family=Nunito+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --floral: #FFFBF2;
-      --linen: #F5E9DC;
-      --lava: #752206;
-      --lava-dark: #5C1A04;
-      --forest: #1D3D14;
-      --body: rgb(44, 45, 48);
-      --muted: #7A7A72;
-      --border: #E3D9CC;
-      --done-bg: #EDE0CE;
+      --bg-paper: #FDFBF7;
+      --bg-card: #FFFFFF;
+      --brand-primary-dark: #314059;
+      --text-primary: #1F2937;
+      --text-secondary: #4B5563;
+      --accent-gold: #F59E0B;
+      --accent-clay: #BC5838;
+      --accent-green: #283618;
+      --border-color: #E5E7EB;
     }
 
     body {
-      font-family: 'Nunito Sans', sans-serif;
-      background: var(--floral);
-      color: var(--body);
+      font-family: 'Merriweather', serif;
+      background: var(--bg-paper);
+      color: var(--text-primary);
       min-height: 100vh;
     }
 
+    h1, h2, h3, .step-title, .all-done h2, .eyebrow, .mark-done-btn, .link-btn { font-family: 'Chivo', sans-serif; font-weight: 700; }
+
     header {
-      background: var(--forest);
-      color: var(--floral);
+      background: var(--brand-primary-dark);
+      color: white;
       padding: 2.5rem 2rem 2rem;
       text-align: center;
       position: relative;
       overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 40px,
-        rgba(255,255,255,0.012) 40px,
-        rgba(255,255,255,0.012) 80px
-      );
+      border-bottom: 3px solid var(--text-primary);
     }
     header .eyebrow {
-      font-family: 'Nunito Sans', sans-serif;
       font-size: 0.72rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--linen);
+      color: var(--accent-gold);
       margin-bottom: 0.75rem;
       position: relative;
     }
     header h1 {
-      font-family: 'Port Lligat Sans', serif;
       font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 400;
+      font-weight: 900;
       line-height: 1.2;
       margin-bottom: 0.6rem;
       position: relative;
     }
     header p {
       font-size: 0.95rem;
-      font-weight: 300;
-      color: rgba(255,251,242,0.72);
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
       max-width: 460px;
       margin: 0 auto;
       position: relative;
     }
 
     .progress-bar-wrap {
-      background: var(--forest);
-      padding: 0 2rem 1.5rem;
+      background: var(--brand-primary-dark);
+      padding: 0 2rem 1.75rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -86,21 +76,21 @@
     .progress-track {
       width: 100%;
       max-width: 560px;
-      height: 5px;
-      background: rgba(255,255,255,0.15);
+      height: 8px;
+      background: rgba(255,255,255,0.18);
       border-radius: 99px;
       overflow: hidden;
     }
     .progress-fill {
       height: 100%;
-      background: var(--lava);
+      background: var(--accent-gold);
       border-radius: 99px;
       transition: width 0.5s ease;
       width: 0%;
     }
     .progress-label {
       font-size: 0.75rem;
-      color: rgba(255,251,242,0.55);
+      color: rgba(255,255,255,0.6);
       letter-spacing: 0.08em;
     }
 
@@ -111,33 +101,35 @@
     }
 
     .intro-note {
-      background: var(--linen);
-      border-left: 3px solid var(--lava);
-      border-radius: 0 8px 8px 0;
-      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 40%, #FEF9E7 100%);
+      border: 2px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
       margin-bottom: 2rem;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       line-height: 1.65;
-      color: var(--body);
+      color: var(--text-primary);
     }
-    .intro-note strong { color: var(--lava); }
+    .intro-note strong { color: var(--brand-primary-dark); }
 
     .step {
-      background: var(--floral);
+      background: var(--bg-card);
       border-radius: 8px;
-      margin-bottom: 0.9rem;
-      border: 1.5px solid var(--border);
+      margin-bottom: 1rem;
+      border: 2px solid var(--border-color);
+      box-shadow: 4px 4px 0 var(--border-color);
       overflow: hidden;
       transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
     }
     .step.done {
-      background: var(--linen);
-      border-color: var(--done-bg);
+      background: var(--bg-card);
+      border-color: var(--accent-green);
+      box-shadow: 4px 4px 0 rgba(40,54,24,0.18);
     }
     .step.active {
-      background: var(--linen);
-      border-color: var(--lava);
-      box-shadow: 0 2px 14px rgba(117,34,6,0.09);
+      background: var(--bg-card);
+      border-color: var(--accent-gold);
+      box-shadow: 4px 4px 0 var(--accent-gold);
     }
 
     .step-header {
@@ -150,26 +142,27 @@
       -webkit-tap-highlight-color: transparent;
     }
     .step-num {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      background: var(--border);
+      background: var(--border-color);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--muted);
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-secondary);
       flex-shrink: 0;
       transition: background 0.3s, color 0.3s;
     }
     .step.done .step-num {
-      background: var(--forest);
+      background: var(--accent-green);
       color: white;
     }
     .step.active .step-num {
-      background: var(--lava);
-      color: white;
+      background: var(--accent-gold);
+      color: var(--text-primary);
     }
     .step-num .check { display: none; }
     .step.done .step-num .check { display: block; }
@@ -177,19 +170,18 @@
 
     .step-title-wrap { flex: 1; min-width: 0; }
     .step-title {
-      font-family: 'Port Lligat Sans', serif;
-      font-size: 1rem;
-      font-weight: 400;
+      font-size: 1.05rem;
+      font-weight: 700;
       line-height: 1.3;
-      color: var(--body);
+      color: var(--brand-primary-dark);
     }
     .step-subtitle {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.15rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
     }
     .step-chevron {
-      color: var(--muted);
+      color: var(--text-secondary);
       font-size: 0.8rem;
       transition: transform 0.3s;
       flex-shrink: 0;
@@ -199,20 +191,33 @@
     .step-body {
       display: none;
       padding: 0 1.25rem 1.25rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--border-color);
       animation: fadeIn 0.2s ease;
     }
     .step.active .step-body { display: block; }
-    .step.done .step-body { border-top-color: var(--done-bg); }
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 
     .step-body p {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       line-height: 1.65;
-      color: var(--body);
+      color: var(--text-secondary);
       margin-top: 1rem;
     }
+    .step-body p strong { color: var(--text-primary); }
+    .step-body p a { color: var(--accent-green); }
+
+    .step-subhead {
+      font-family: 'Chivo', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--brand-primary-dark);
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-color);
+      letter-spacing: 0.01em;
+    }
+    .step-subhead:first-child { margin-top: 1rem; padding-top: 0; border-top: none; }
 
     .link-btn {
       display: inline-flex;
@@ -220,38 +225,38 @@
       gap: 0.4rem;
       margin-top: 0.9rem;
       padding: 0.55rem 1rem;
-      background: var(--lava);
+      background: var(--brand-primary-dark);
       color: white;
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 4px;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       transition: background 0.2s, transform 0.15s;
       margin-right: 0.5rem;
       margin-bottom: 0.4rem;
     }
-    .link-btn:hover { background: var(--forest); transform: translateY(-1px); }
+    .link-btn:hover { background: var(--accent-green); color: white; transform: translateY(-1px); }
     .link-btn.secondary {
-      background: transparent;
-      color: var(--body);
-      border: 1.5px solid var(--border);
+      background: var(--bg-card);
+      color: var(--brand-primary-dark);
+      border: 2px solid var(--border-color);
     }
-    .link-btn.secondary:hover { background: var(--linen); border-color: var(--forest); transform: translateY(-1px); }
+    .link-btn.secondary:hover { background: var(--bg-paper); border-color: var(--accent-green); color: var(--accent-green); transform: translateY(-1px); }
 
     .links-row { display: flex; flex-wrap: wrap; margin-top: 0.2rem; }
 
     .note-callout {
-      background: var(--linen);
-      border: 1px solid var(--done-bg);
-      border-radius: 8px;
+      background: var(--bg-paper);
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
       padding: 0.75rem 1rem;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       line-height: 1.55;
-      color: var(--body);
+      color: var(--text-secondary);
       margin-top: 1rem;
     }
-    .note-callout strong { color: var(--forest); }
-    .note-callout a { color: var(--forest); }
+    .note-callout strong { color: var(--brand-primary-dark); }
+    .note-callout a { color: var(--accent-green); }
 
     .mark-done-btn {
       display: inline-flex;
@@ -259,55 +264,57 @@
       gap: 0.4rem;
       margin-top: 1.25rem;
       padding: 0.55rem 1.1rem;
-      background: var(--forest);
+      background: var(--accent-green);
       color: white;
-      border: none;
-      border-radius: 8px;
+      border: 2px solid var(--accent-green);
+      border-radius: 4px;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      font-family: 'Nunito Sans', sans-serif;
+      transition: background 0.2s, transform 0.15s, color 0.2s;
+      font-family: 'Chivo', sans-serif;
     }
-    .mark-done-btn:hover { background: var(--lava); transform: translateY(-1px); }
+    .mark-done-btn:hover { background: var(--bg-card); color: var(--accent-green); transform: translateY(-1px); }
     .step.done .mark-done-btn {
-      background: transparent;
-      color: var(--muted);
-      border: 1.5px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 2px solid var(--border-color);
     }
+    .step.done .mark-done-btn:hover { color: var(--text-primary); border-color: var(--text-secondary); }
 
     .all-done {
       display: none;
       text-align: center;
       padding: 2.5rem 1.5rem;
-      background: var(--linen);
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 40%, #FEF9E7 100%);
       border-radius: 8px;
-      border: 1.5px solid var(--done-bg);
+      border: 2px solid var(--accent-gold);
+      box-shadow: 4px 4px 0 var(--border-color);
       margin-top: 1.5rem;
     }
     .all-done h2 {
-      font-family: 'Port Lligat Sans', serif;
-      font-size: 1.5rem;
-      font-weight: 400;
+      font-size: 1.6rem;
+      font-weight: 900;
       margin-bottom: 0.75rem;
-      color: var(--lava);
+      color: var(--brand-primary-dark);
     }
     .all-done p {
-      font-size: 0.9rem;
-      color: var(--muted);
+      font-size: 0.92rem;
+      color: var(--text-secondary);
       line-height: 1.6;
       max-width: 400px;
       margin: 0 auto;
     }
+    .all-done p strong { color: var(--text-primary); }
     .big-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
 
     footer {
       text-align: center;
       padding: 2rem;
-      font-size: 0.78rem;
-      color: var(--muted);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
     }
-    footer a { color: var(--muted); }
+    footer a { color: var(--accent-green); }
   </style>
 </head>
 <body>
@@ -337,16 +344,15 @@
         <span class="check">✓</span>
       </div>
       <div class="step-title-wrap">
-        <div class="step-title">Add yourself to the NC Directory 💬</div>
-        <div class="step-subtitle">So other captains can find and connect with you</div>
+        <div class="step-title">Sign the Community Agreements 📝</div>
+        <div class="step-subtitle">Common-sense commitments for showing up for neighbors</div>
       </div>
       <div class="step-chevron">▼</div>
     </div>
     <div class="step-body">
-      <p>Add your name, neighborhood zone, and contact info to the shared directory. This is how fellow Neighborhood Captains will find you, and how the Altagether team knows who's in the network.</p>
+      <p>Every Neighborhood Captain is asked to abide by these shared commitments about how we show up for our neighbors and for each other within the context of Altagether and the NC role. It takes about 2 minutes to read and sign.</p>
       <div class="links-row">
-        <a class="link-btn" href="https://docs.google.com/spreadsheets/d/1E77qmT4eGtyokaDvD2wlK3q2NeMcS4itmkbYp6Rz0qM/edit?gid=0#gid=0" target="_blank">📋 Open NC Directory</a>
-        <a class="link-btn secondary" href="https://dashboard.altagether.org/nc-directory.html" target="_blank">🔍 Search the Directory</a>
+        <a class="link-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/viewform?usp=dialog" target="_blank">📝 Read &amp; Sign Here</a>
       </div>
       <button class="mark-done-btn" onclick="markDone(1)">✓ Mark as done</button>
     </div>
@@ -360,15 +366,17 @@
         <span class="check">✓</span>
       </div>
       <div class="step-title-wrap">
-        <div class="step-title">Sign the Community Agreements 📝</div>
-        <div class="step-subtitle">Common-sense commitments for showing up for neighbors</div>
+        <div class="step-title">Add yourself to the NC Directory 💬</div>
+        <div class="step-subtitle">So other captains can find and connect with you</div>
       </div>
       <div class="step-chevron">▼</div>
     </div>
     <div class="step-body">
-      <p>Every Neighborhood Captain is asked to abide by these shared commitments about how we show up for our neighbors and for each other within the context of Altagether and the NC role. It takes about 2 minutes to read and sign.</p>
+      <p>Add your contact info, interests, and some key facts about your zone. This is how Neighborhood Captains can find and get in touch with each other.</p>
+      <p><strong>To add yourself:</strong> Log in to your Zone Dashboard and click <strong>My NC Profile</strong> on the left.</p>
       <div class="links-row">
-        <a class="link-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/viewform?usp=dialog" target="_blank">📝 Read &amp; Sign Here</a>
+        <a class="link-btn" href="https://dashboard.altagether.org/" target="_blank">📋 Open Dashboard</a>
+        <a class="link-btn secondary" href="https://dashboard.altagether.org/nc-directory.html" target="_blank">🔍 Open NC Directory</a>
       </div>
       <button class="mark-done-btn" onclick="markDone(2)">✓ Mark as done</button>
     </div>
@@ -382,15 +390,24 @@
         <span class="check">✓</span>
       </div>
       <div class="step-title-wrap">
-        <div class="step-title">Read: Connecting with Neighbors 🥾</div>
-        <div class="step-subtitle">Your starting point for organizing your zone</div>
+        <div class="step-title">Join/Bookmark Our Calendar 🌹</div>
+        <div class="step-subtitle">Our shared calendar plus recurring NC meeting details</div>
       </div>
       <div class="step-chevron">▼</div>
     </div>
     <div class="step-body">
-      <p>Not sure where to begin? This two-pager gives you a clear, friendly framework for reaching out to the households in your zone and building relationships from day one.</p>
+      <div class="step-subhead">Shared Calendar</div>
+      <p>You can access our shared calendar below. (If you're not able to access this calendar, it means we haven't added you yet. Please let us know by emailing <strong>info@altagether.org</strong>.)</p>
       <div class="links-row">
-        <a class="link-btn" href="https://docs.google.com/presentation/d/17ETnbnXpycrenUmUdunhMPyzSsxzbjVyUl_fkO7p6oY/edit?slide=id.g34a82007178_1_42#slide=id.g34a82007178_1_42" target="_blank">📄 Open the Two-Pager</a>
+        <a class="link-btn" href="https://calendar.google.com/calendar/u/1?cid=Y180ZTNhZjAzNjBkYzMyMmI3ZjFmNTE5N2RmODRkZTExNmY3OGExOGMyYzAwODdjMTQwOGI1MTQ3Y2IzNmIyZTdkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank">🗓 Add NC Calendar</a>
+      </div>
+      <div class="step-subhead">Regular Meetings</div>
+      <p>Neighborhood Captain meetings happen on the <strong>2nd and 4th Monday of each month at 7 PM</strong> over Zoom. They're always recorded and recapped the next day—but we would love to see you there.</p>
+      <div class="links-row">
+        <a class="link-btn" href="https://docs.google.com/document/d/1A0eVERltVe7Xq6BLcXNwIiI0l2mR8wYRBH1-WEezwcQ/edit?tab=t.0" target="_blank">📅 2026 Meeting Schedule</a>
+      </div>
+      <div class="note-callout">
+        <strong>Link to join:</strong> <a href="https://us06web.zoom.us/j/7786951799?omn=87953044461" target="_blank">https://us06web.zoom.us/j/7786951799</a>
       </div>
       <button class="mark-done-btn" onclick="markDone(3)">✓ Mark as done</button>
     </div>
@@ -404,19 +421,20 @@
         <span class="check">✓</span>
       </div>
       <div class="step-title-wrap">
-        <div class="step-title">Check the Meetings Calendar 🌹</div>
-        <div class="step-subtitle">Optional bi-monthly Zoom calls, always recorded</div>
+        <div class="step-title">Join us on Discord 🦜</div>
+        <div class="step-subtitle">Optional but great for staying connected</div>
       </div>
       <div class="step-chevron">▼</div>
     </div>
     <div class="step-body">
-      <p>NC meetings happen on the <strong>2nd and 4th Monday of each month at 7 PM</strong> over Zoom. They're optional and always recorded and recapped the next day — so there's no pressure to attend live.</p>
+      <p>The <a href="https://www.efsurvivors.net/discord" target="_blank">Every Fire Survivor’s Network (EFSN)</a> Discord is a community where survivors connect, get answers, and move their recovery forward together. Within that broader community, Altagether has a handful of channels just for Neighborhood Captains.</p>
+	  <p><strong>FIRST: </strong>Join the EFSN Discord</p>
+	  <p><strong>THEN: </strong>In Discord, message us at <strong>@altagether_org</strong> with your name to get added to the private NC channel.</p>
       <div class="note-callout">
-        <strong>Zoom link:</strong> <a href="https://us06web.zoom.us/j/7786951799?omn=87953044461" target="_blank">https://us06web.zoom.us/j/7786951799</a>
+        <strong>New to Discord?</strong> Watch the <a href="https://drive.google.com/file/d/1ITF5yi1W14jenwAS92XFO3e99W5QIzGG/view?usp=drive_link" target="_blank">4-minute Quick-Start video</a> or browse the <a href="https://docs.google.com/document/d/1Fm9lst25aH4tgCoV7RxIARRFeLsiYiQedq5rbjjNSiM/edit?tab=t.0#heading=h.n62bhhwnkdeu" target="_blank">full training video list</a>.
       </div>
       <div class="links-row">
-        <a class="link-btn" href="https://docs.google.com/document/d/1A0eVERltVe7Xq6BLcXNwIiI0l2mR8wYRBH1-WEezwcQ/edit?tab=t.0" target="_blank">📅 Upcoming Meeting Dates</a>
-        <a class="link-btn secondary" href="https://calendar.google.com/calendar/u/1?cid=Y180ZTNhZjAzNjBkYzMyMmI3ZjFmNTE5N2RmODRkZTExNmY3OGExOGMyYzAwODdjMTQwOGI1MTQ3Y2IzNmIyZTdkQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20" target="_blank">🗓 Add NC Calendar</a>
+        <a class="link-btn" href="https://discord.com/invite/Y5atRPvc3V" target="_blank">🦜 Join the Discord</a>
       </div>
       <button class="mark-done-btn" onclick="markDone(4)">✓ Mark as done</button>
     </div>
@@ -430,19 +448,15 @@
         <span class="check">✓</span>
       </div>
       <div class="step-title-wrap">
-        <div class="step-title">Join the Discord 🦜</div>
-        <div class="step-subtitle">Optional but great for staying connected</div>
+        <div class="step-title">Read: Connecting with Neighbors 🥾</div>
+        <div class="step-subtitle">Your starting point for organizing your zone</div>
       </div>
       <div class="step-chevron">▼</div>
     </div>
     <div class="step-body">
-      <p>Our Discord is a shared space for chatting, trading ideas, and getting quick answers. It's nested within a broader community of Eaton Fire survivors. Once you join:</p>
-      <p>→ Message <strong>@altagether_org</strong> with your name to get added to the private NC channel.</p>
-      <div class="note-callout">
-        <strong>New to Discord?</strong> Watch the <a href="https://drive.google.com/file/d/1ITF5yi1W14jenwAS92XFO3e99W5QIzGG/view?usp=drive_link" target="_blank">4-minute Quick-Start video</a> or browse the <a href="https://docs.google.com/document/d/1Fm9lst25aH4tgCoV7RxIARRFeLsiYiQedq5rbjjNSiM/edit?tab=t.0#heading=h.n62bhhwnkdeu" target="_blank">full training video list</a>.
-      </div>
+      <p>Not sure where to begin? This two-pager gives you a clear, friendly framework for reaching out to the households in your zone and building relationships from day one.</p>
       <div class="links-row">
-        <a class="link-btn" href="https://discord.com/invite/Y5atRPvc3V" target="_blank">🦜 Join the Discord</a>
+        <a class="link-btn" href="https://docs.google.com/presentation/d/17ETnbnXpycrenUmUdunhMPyzSsxzbjVyUl_fkO7p6oY/edit?slide=id.g34a82007178_1_42#slide=id.g34a82007178_1_42" target="_blank">📄 Open the Two-Pager</a>
       </div>
       <button class="mark-done-btn" onclick="markDone(5)">✓ Mark as done</button>
     </div>

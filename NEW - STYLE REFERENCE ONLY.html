@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NC Directory | Altagether</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="public/images/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-paper: #FDFBF7;
+      --bg-card: #FFFFFF;
+      --brand-primary-dark: #314059;
+      --text-primary: #1F2937;
+      --text-secondary: #4B5563;
+      --accent-gold: #F59E0B;
+      --accent-clay: #BC5838;
+      --accent-green: #283618;
+      --border-color: #E5E7EB;
+    }
+    * { box-sizing: border-box; }
+    .hidden { display: none !important; }
+    html, body { margin: 0; padding: 0; min-height: 100%; font-family: 'Merriweather', serif; background: var(--bg-paper); color: var(--text-primary); }
+    h1, h2, h3, .nav-item, .btn { font-family: 'Chivo', sans-serif; font-weight: 700; }
+    .header {
+      background: var(--brand-primary-dark);
+      color: white;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 3px solid var(--text-primary);
+    }
+    .header img { height: 50px; }
+    .header h1 { margin: 0; font-size: 1.5rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .search-wrap { flex: 1; min-width: 200px; }
+    .search-wrap input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .filters label { font-size: 0.9rem; color: var(--text-secondary); font-weight: 400; }
+    .count { font-size: 0.9rem; color: var(--text-secondary); font-weight: 400; margin-left: auto; }
+    .filters select {
+      padding: 0.5rem 0.75rem;
+      border: 2px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-family: 'Merriweather', serif;
+      background: white;
+    }
+    .filter-section { margin-top: 1rem; }
+    .filter-section-label { font-size: 0.9rem; color: var(--text-secondary); font-weight: 600; margin-bottom: 0.5rem; display: block; }
+    .filter-cta { font-size: 0.9rem; color: var(--text-secondary); margin: 0.5rem 0 0; }
+    .filter-cta a, .intro-blurb a, .intro-instructions a { color: var(--accent-green); text-decoration: underline; font-weight: 700; }
+    .filter-cta a:hover, .intro-blurb a:hover, .intro-instructions a:hover { opacity: 0.85; }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3rem 0.6rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-family: 'Merriweather', serif;
+      cursor: pointer;
+    }
+    .filter-chip.active { background: var(--accent-gold); border-color: var(--brand-primary-dark); color: var(--text-primary); }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      box-shadow: 4px 4px 0 var(--border-color);
+    }
+    .card h3 { margin: 0 0 0.5rem; font-size: 1.15rem; color: var(--brand-primary-dark); }
+    .card .zone { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+    .card .contact { margin: 0.5rem 0; font-size: 0.95rem; display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }
+    .card .contact a { color: var(--accent-green); text-decoration: none; }
+    .card .contact a:hover { text-decoration: underline; }
+    .card .contact .email-wrap { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .card .contact .copy-email-btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.2rem; border: none; background: transparent; cursor: pointer; border-radius: 4px; color: var(--text-secondary); opacity: 0.6; }
+    .card .contact .email-wrap:hover .copy-email-btn { opacity: 1; }
+    .card .contact .copy-email-btn:hover { background: #E5E7EB; color: var(--text-primary); }
+    .card .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
+    .card .tags-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.75rem; margin-bottom: 0.25rem; font-weight: 600; }
+    .tag { background: #EEF2FF; color: var(--brand-primary-dark); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
+    .tag.badge { background: #FEF3C7; color: #92400E; }
+    .tag.badge.badge-1year { background: linear-gradient(135deg, #FDE68A 0%, #FCD34D 100%); color: #78350F; font-weight: 700; padding: 0.35rem 0.6rem; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .tag.badge.badge-1year::before { content: '★ '; }
+    .tag.badge.badge-chair { background: linear-gradient(135deg, #DBEAFE 0%, #93C5FD 100%); color: #1E3A8A; font-weight: 700; padding: 0.35rem 0.6rem; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .tag.badge.badge-chair::before { content: '◆ '; }
+    .tag.badge.badge-newsletter { background: linear-gradient(135deg, #D1FAE5 0%, #6EE7B7 100%); color: #065F46; font-weight: 700; padding: 0.35rem 0.6rem; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .tag.badge.badge-newsletter::before { content: '✉ '; }
+.tag.badge.badge-dena-native { background: linear-gradient(135deg, #F2EDE6 0%, #D4C4B0 50%, #9B8B7A 100%); color: #3D3529; font-weight: 700; padding: 0.35rem 0.6rem; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.06); border: 1px solid rgba(61,53,41,0.15); }
+.tag.badge.badge-dena-native::before { content: '✦ '; }
+    .card .bio { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.4; }
+    .card .location { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.4; }
+    .card .notes-bio { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.4; font-style: italic; }
+    .card .ask-me-about { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.1rem; line-height: 1.4; }
+    .loading, .error { text-align: center; padding: 2rem; font-size: 1.1rem; }
+    .error { color: var(--accent-clay); }
+    .empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
+    .intro-blurb {
+      font-size: 0.95rem; line-height: 1.6; margin: 0 0 1.5rem; max-width: 48rem;
+      padding: 1.25rem 1.5rem; border-radius: 8px;
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 40%, #FEF9E7 100%);
+      border: 2px solid var(--accent-gold);
+      color: var(--text-primary);
+    }
+    .intro-blurb strong { color: var(--brand-primary-dark); }
+    .intro-instructions { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0 0 1.5rem; max-width: 48rem; }
+    .accordion { border: 2px solid var(--border-color); border-radius: 4px; background: var(--bg-card); margin-top: 1rem; margin-bottom: 0.5rem; }
+    .accordion-header { padding: 0.5rem 0.75rem; cursor: pointer; font-weight: 600; font-size: 0.9rem; font-family: 'Merriweather', serif; color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; }
+    .accordion-header:hover { background: #F9FAFB; }
+    .accordion-header::after { content: '▼'; font-size: 0.7rem; transition: transform 0.2s; }
+    .accordion.open .accordion-header::after { transform: rotate(-180deg); }
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; }
+    .accordion.open .accordion-body { max-height: 500px; overflow-y: auto; }
+    .accordion-inner { padding: 0.85rem 0.85rem 1rem; border-top: 1px solid var(--border-color); }
+    .accordion-inner label { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; font-size: 0.9rem; font-family: 'Merriweather', serif; cursor: pointer; }
+    .accordion-inner input[type="checkbox"] { margin: 0; }
+    .interest-filter-groups { display: grid; gap: 0.85rem; }
+    .interest-filter-group { border: 1px solid #ECE7DD; border-radius: 10px; background: #FCFBF8; padding: 0.75rem; }
+    .interest-filter-group-title { margin: 0 0 0.2rem; font-family: 'Chivo', sans-serif; font-size: 0.88rem; font-weight: 800; color: var(--brand-primary-dark); letter-spacing: 0.02em; }
+    .interest-filter-group-copy { margin: 0 0 0.55rem; color: var(--text-secondary); font-size: 0.78rem; line-height: 1.45; }
+    .interest-filter-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.45rem 0.75rem; }
+    .interest-filter-option { min-width: 0; }
+    .interest-filter-option span:last-child { line-height: 1.35; }
+    .interest-groups-block { display: grid; gap: 0.55rem; }
+    .interest-group { display: grid; gap: 0.2rem; }
+    .interest-group-label { font-size: 0.76rem; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .tags--interest { margin-top: 0; }
+    .results-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .results-bar .view-toggle {
+      display: flex;
+      gap: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 2px solid var(--border-color);
+    }
+    .results-bar .view-toggle button {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.9rem;
+      font-family: 'Merriweather', serif;
+      font-weight: 600;
+      border: none;
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .results-bar .view-toggle button:hover { background: #F9FAFB; color: var(--text-primary); }
+    .results-bar .view-toggle button.active { background: var(--accent-gold); color: var(--text-primary); }
+    .list-table-wrap { overflow-x: auto; }
+    .list-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .list-table th, .list-table td { padding: 0.6rem 1rem; text-align: left; }
+    .list-table th {
+      background: var(--brand-primary-dark);
+      color: white;
+      font-family: 'Chivo', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .list-table tbody tr:nth-child(even) { background: #F9FAFB; }
+    .list-table tbody tr:hover { background: #F3F4F6; }
+    .list-table .email-cell a { color: var(--accent-green); text-decoration: none; }
+    .list-table .email-cell a:hover { text-decoration: underline; }
+    .results-bar .export-btn { padding: 0.4rem 0.75rem; font-size: 0.9rem; font-family: 'Merriweather', serif; font-weight: 600; border: 2px solid var(--accent-green); background: var(--bg-card); color: var(--accent-green); border-radius: 4px; cursor: pointer; }
+    .results-bar .export-btn:hover { background: var(--accent-green); color: white; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
+    .modal-overlay.hidden { display: none; }
+    .modal { background: var(--bg-card); border-radius: 8px; max-width: 480px; width: 100%; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); border: 2px solid var(--border-color); }
+    .modal h3 { margin: 0 0 1rem; font-size: 1.15rem; }
+    .modal-filters { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; padding: 0.75rem; background: #F9FAFB; border-radius: 4px; }
+    .modal-actions { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .modal-actions button { padding: 0.6rem 1rem; font-size: 0.95rem; font-weight: 600; border-radius: 4px; cursor: pointer; border: 2px solid; }
+    .modal-copy-btn { background: var(--accent-green); color: white; border-color: var(--accent-green); }
+    .modal-copy-btn:hover { opacity: 0.9; }
+    .modal-copy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .modal-download-btn { background: white; color: var(--brand-primary-dark); border-color: var(--brand-primary-dark); }
+    .modal-download-btn:hover { background: var(--brand-primary-dark); color: white; }
+    .modal-close-btn { margin-top: 1rem; padding: 0.4rem; background: transparent; border: none; color: var(--text-secondary); cursor: pointer; font-size: 0.9rem; }
+    .modal-close-btn:hover { color: var(--text-primary); }
+    @media (max-width: 640px) {
+      .container { padding: 1rem; }
+      .toolbar { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+      .search-wrap { min-width: 100%; }
+      .filters { flex-direction: column; align-items: stretch; }
+      .filters select { flex: 1; min-width: 0; }
+      .count { margin-left: 0; margin-top: 0.25rem; }
+      .cards { grid-template-columns: 1fr; gap: 0.75rem; }
+      .card { padding: 1rem; }
+      .intro-blurb { padding: 1rem; font-size: 0.9rem; }
+      .filter-chips { flex-direction: column; align-items: flex-start; }
+      .interest-filter-grid { grid-template-columns: 1fr; }
+      .results-bar { flex-direction: column; align-items: stretch; }
+      .card .contact .copy-email-btn { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <img src="public/images/logo_white_transparent.png" alt="Altagether" />
+    <h1>Neighborhood Captain Directory</h1>
+  </header>
+  <main class="container">
+    <div class="intro-blurb"><strong>Dear Neighborhood Captains,</strong> this directory is intended for your use only so that you can find each other to coordinate and collaborate. To protect the privacy of your fellow captains, please do not share this directory outside of Altagether.</div>
+    <p class="intro-instructions"><strong>To use:</strong> Search by name, zone, skills, or interests, and use the filters below to narrow your results.<br><br><strong>To update your profile:</strong> Make changes in the zone dashboard under My NC Profile, or the old fashioned way in <a href="#" id="spreadsheetLink" target="_blank" rel="noopener noreferrer">this spreadsheet</a>.</p>
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input type="search" id="searchInput" placeholder="Search by name, zone, skills, interests…" aria-label="Search directory" />
+      </div>
+      <div class="filters">
+        <label>Zone:</label>
+        <select id="filterZone">
+          <option value="">All</option>
+        </select>
+        <label>Census tract:</label>
+        <select id="filterCensusTract">
+          <option value="">All</option>
+        </select>
+        <label>Water district:</label>
+        <select id="filterWaterDistrict">
+          <option value="">All</option>
+        </select>
+      </div>
+      <span class="count" id="resultCount">—</span>
+    </div>
+    <div class="filter-section">
+      <span class="filter-section-label">Working groups</span>
+      <div class="filter-chips" id="workingGroupChips"></div>
+      <p class="filter-cta">To contact or join a working group, <a href="#" id="workingGroupsFormLink" target="_blank" rel="noopener noreferrer">go here</a>.</p>
+    </div>
+    <div class="filter-section">
+      <div class="accordion" id="interestAccordion">
+        <div class="accordion-header filter-section-label" id="interestAccordionHeader">Interest areas</div>
+        <div class="accordion-body">
+          <div class="accordion-inner" id="interestCheckboxes"></div>
+        </div>
+      </div>
+    </div>
+    <div class="results-bar hidden" id="resultsBar">
+      <span class="view-toggle" role="group" aria-label="View mode">
+        <button type="button" id="viewCards" aria-pressed="true">Cards</button>
+        <button type="button" id="viewList" aria-pressed="false">List</button>
+      </span>
+      <button type="button" class="export-btn hidden" id="exportBtn" title="Export filtered results">Export</button>
+    </div>
+    <div class="modal-overlay hidden" id="exportModal">
+      <div class="modal">
+        <h3>Export filtered captains</h3>
+        <div class="modal-filters" id="modalFiltersSummary"></div>
+        <p class="modal-count" id="modalCount" style="font-size:0.85rem;color:var(--text-secondary);margin:0 0 1rem;"></p>
+        <div class="modal-actions">
+          <button type="button" class="modal-copy-btn" id="modalCopyEmails">Copy email addresses</button>
+          <button type="button" class="modal-download-btn" id="modalDownloadCsv">Download as CSV</button>
+          <button type="button" class="modal-close-btn" id="modalClose">Close</button>
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      <div class="loading" id="loading">Loading directory…</div>
+      <div class="cards hidden" id="cards"></div>
+      <div class="list-table-wrap hidden" id="listWrap">
+        <table class="list-table" id="listTable" aria-label="Filtered captain list">
+          <thead><tr><th>Name</th><th>Zone</th><th>Phone</th><th>Email</th></tr></thead>
+          <tbody id="listBody"></tbody>
+        </table>
+      </div>
+      <div class="empty hidden" id="empty">No captains match your filters.</div>
+      <div class="error hidden" id="error"></div>
+    </div>
+  </main>
+  <script>
+    (function () {
+      const API_URL = '/api/nc-directory';
+      const WORKING_GROUPS_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdvEGTteFPiOmV3FRRwdumpAQCJt-g-eyxPon4q5n7ZF1HY7Q/viewform?usp=dialog';
+      const NC_DIRECTORY_SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/1E77qmT4eGtyokaDvD2wlK3q2NeMcS4itmkbYp6Rz0qM/edit?gid=0#gid=0';
+      const GOOGLE_EMAIL_KEY = 'Google email';
+      const PREFERRED_EMAIL_KEY = 'Preferred email';
+      const NAME_KEY = 'Name';
+      const ZONE_KEY = 'Zone';
+      const PHONE_KEY = 'Phone';
+      const WORKING_GROUP_KEY = 'Working Group Participation';
+      const INTEREST_AREAS_KEY = 'Interest Areas';
+      const BADGES_KEY = 'Badges';
+      const CENSUS_TRACT_KEY = 'Predominant Census Tract of Zone';
+      const WATER_DISTRICT_CANDIDATES = ['Water Districts in Zone', 'Water District', 'Water districts in zone', 'Water District in Zone'];
+      let WATER_DISTRICT_KEY = 'Water Districts in Zone';
+      const LOCATION_KEY = 'Location';
+      const NOTES_BIO_KEY = 'Notes/Bio';
+      const EXPERTISE_ASK_ME_KEY = 'Expertise (Ask Me About...)';
+      const SKILLS_KEY = 'Skills & Expertise';
+      const LANGUAGES_KEY = 'Languages Spoken';
+      const HOUSING_KEY = 'Housing Arrangement';
+      const DAMAGE_KEY = 'Damage to home';
+      const NC_INTEREST_AREA_GROUPS = [
+        {
+          label: 'Rebuilding & Housing',
+          description: 'Homes, rebuilding paths, and resilient construction choices.',
+          options: ['Standing homes', 'Rebuilding', 'Home hardening', 'Insurance', 'Owner/Builder', 'Alternative Building', 'Passive homes', 'Modular, Prefab, and Factory-Built Homes']
+        },
+        {
+          label: 'Community Planning & Preservation',
+          description: 'Land use, culture, memory, and long-range neighborhood vision.',
+          options: ['Community visioning', 'Community Land Trusts', 'Commercial redevelopment', 'Architectural heritage', 'Town history & stories', 'Arts']
+        },
+        {
+          label: 'Neighbor Support & Institutions',
+          description: 'People-facing issues, institutions, and mutual support networks.',
+          options: ['Crime & Safety', 'Mental health', 'Renter issues', 'Landlord issues', 'Schools & Children', 'Faith communities', 'Event planning']
+        },
+        {
+          label: 'Environment & Resilience',
+          description: 'Landscape, ecology, climate adaptation, and disaster readiness.',
+          options: ['Bioremediation', 'Trees & plants', 'Solar power', 'Disaster preparedness']
+        },
+        {
+          label: 'Infrastructure & Utilities',
+          description: 'The systems that keep neighborhoods functioning.',
+          options: ['Private Road', 'Septic to Sewer', 'Telecom issues', 'Utilities - All', 'Utilities - Electric', 'Utilities - Gas', 'Utilities - Water']
+        },
+        {
+          label: 'Coordination & Tools',
+          description: 'Practical collaboration tools and ways to work together.',
+          options: ['Group purchasing power', 'New tech tools & platforms']
+        }
+      ];
+      const NC_INTEREST_AREA_ORDER = NC_INTEREST_AREA_GROUPS.flatMap(group => group.options);
+
+      const copyIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      let allCaptains = [];
+      let filteredList = [];
+      let viewMode = 'cards';
+      let activeWorkingGroups = new Set();
+      let activeInterests = new Set();
+
+      function parseRow(headers, values) {
+        const row = {};
+        headers.forEach((h, i) => { row[h] = (values[i] || '').trim(); });
+        return row;
+      }
+
+      function splitPipe(val) {
+        if (!val || !String(val).trim()) return [];
+        return String(val).split('|').map(s => s.trim()).filter(Boolean);
+      }
+      // Parse multi-select cell: comma-separated (with quoted segments) or legacy pipe-separated.
+      function parseMultiSelect(val) {
+        if (!val || !String(val).trim()) return [];
+        const s = String(val).trim();
+        if (s.includes('|') && !s.includes('"')) {
+          return s.split('|').map(x => x.trim()).filter(Boolean);
+        }
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+        for (let i = 0; i < s.length; i++) {
+          const c = s[i];
+          if (c === '"') {
+            if (inQuotes && s[i + 1] === '"') { current += '"'; i++; }
+            else inQuotes = !inQuotes;
+          } else if (c === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+            if (s[i + 1] === ' ') i++;
+          } else {
+            current += c;
+          }
+        }
+        result.push(current.trim());
+        return result.filter(Boolean);
+      }
+
+      function sortInterestAreas(values) {
+        const order = new Map(NC_INTEREST_AREA_ORDER.map((value, index) => [value, index]));
+        return [...new Set((values || []).filter(Boolean))].sort((a, b) => {
+          const aIndex = order.has(a) ? order.get(a) : Number.MAX_SAFE_INTEGER;
+          const bIndex = order.has(b) ? order.get(b) : Number.MAX_SAFE_INTEGER;
+          if (aIndex !== bIndex) return aIndex - bIndex;
+          return a.localeCompare(b);
+        });
+      }
+
+      function collectInterestOptions() {
+        const collected = [];
+        allCaptains.forEach(c => {
+          parseMultiSelect(c[INTEREST_AREAS_KEY]).forEach(value => collected.push(value));
+        });
+        return sortInterestAreas([...NC_INTEREST_AREA_ORDER, ...collected]);
+      }
+
+      function getInterestAreaGroups(extraValues = []) {
+        const allOptions = sortInterestAreas([...collectInterestOptions(), ...(extraValues || [])]);
+        const allSet = new Set(allOptions);
+        const knownSet = new Set(NC_INTEREST_AREA_ORDER);
+        const groups = NC_INTEREST_AREA_GROUPS.map(group => ({
+          label: group.label,
+          description: group.description,
+          options: group.options.filter(option => allSet.has(option))
+        })).filter(group => group.options.length > 0);
+        const extras = allOptions.filter(option => !knownSet.has(option));
+        if (extras.length) {
+          groups.push({
+            label: 'Other Existing Values',
+            description: 'These are preserved from the spreadsheet so older entries remain visible.',
+            options: extras
+          });
+        }
+        return groups;
+      }
+
+      function groupSelectedInterests(interests) {
+        const selectedSet = new Set(interests || []);
+        return getInterestAreaGroups(interests).map(group => ({
+          label: group.label,
+          options: group.options.filter(option => selectedSet.has(option))
+        })).filter(group => group.options.length > 0);
+      }
+
+      function normalizePhone(val) {
+        if (!val || !String(val).trim()) return '';
+        const digits = String(val).replace(/\D/g, '');
+        if (digits.length === 10) return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+        return String(val).trim();
+      }
+
+      function buildSearchableText(captain) {
+        const parts = [
+          captain[NAME_KEY],
+          captain[ZONE_KEY],
+          captain[SKILLS_KEY],
+          captain[LANGUAGES_KEY],
+          captain[LOCATION_KEY],
+          captain[NOTES_BIO_KEY],
+          captain[EXPERTISE_ASK_ME_KEY],
+          parseMultiSelect(captain[WORKING_GROUP_KEY]).join(' '),
+          parseMultiSelect(captain[INTEREST_AREAS_KEY]).join(' ')
+        ];
+        return parts.join(' ').toLowerCase();
+      }
+
+      function applyFilters() {
+        const query = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+        const zone = (document.getElementById('filterZone').value || '').trim();
+        const censusTract = (document.getElementById('filterCensusTract').value || '').trim();
+        const waterDistrict = (document.getElementById('filterWaterDistrict').value || '').trim();
+
+        filteredList = allCaptains.filter(c => {
+          if (query) {
+            if (!buildSearchableText(c).includes(query)) return false;
+          }
+          if (zone && (c[ZONE_KEY] || '').trim() !== zone) return false;
+          if (censusTract && (c[CENSUS_TRACT_KEY] || '').trim() !== censusTract) return false;
+          if (waterDistrict) {
+            const wdSet = new Set(parseMultiSelect(c[WATER_DISTRICT_KEY]));
+            if (!wdSet.has(waterDistrict)) return false;
+          }
+          if (activeWorkingGroups.size) {
+            const wg = new Set(parseMultiSelect(c[WORKING_GROUP_KEY]));
+            if (![...activeWorkingGroups].some(x => wg.has(x))) return false;
+          }
+          if (activeInterests.size) {
+            const ia = new Set(parseMultiSelect(c[INTEREST_AREAS_KEY]));
+            if (![...activeInterests].some(x => ia.has(x))) return false;
+          }
+          return true;
+        });
+
+        document.getElementById('resultCount').textContent = filteredList.length + ' captain' + (filteredList.length !== 1 ? 's' : '');
+        updateResultsBar();
+        renderView();
+      }
+
+      function getEmailsFromList(list) {
+        return list.map(c => {
+          const e = (c[PREFERRED_EMAIL_KEY] || '').trim() || (c[GOOGLE_EMAIL_KEY] || '').trim();
+          return e;
+        }).filter(Boolean);
+      }
+
+      function updateResultsBar() {
+        const bar = document.getElementById('resultsBar');
+        const exportBtn = document.getElementById('exportBtn');
+        const hasResults = filteredList.length > 0;
+        bar.classList.toggle('hidden', !hasResults);
+        if (hasResults) {
+          exportBtn.classList.toggle('hidden', viewMode !== 'list');
+        }
+      }
+
+      function renderView() {
+        const cardsEl = document.getElementById('cards');
+        const listWrap = document.getElementById('listWrap');
+        if (viewMode === 'cards') {
+          renderCards(filteredList);
+          cardsEl.classList.remove('hidden');
+          listWrap.classList.add('hidden');
+        } else {
+          renderList(filteredList);
+          cardsEl.classList.add('hidden');
+          listWrap.classList.remove('hidden');
+        }
+        updateResultsBar();
+        bindCopyEmailButtons();
+      }
+
+      function renderList(list) {
+        const tbody = document.getElementById('listBody');
+        const emptyEl = document.getElementById('empty');
+        const listWrap = document.getElementById('listWrap');
+        if (list.length === 0) {
+          listWrap.classList.add('hidden');
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+        emptyEl.classList.add('hidden');
+        tbody.innerHTML = list.map(c => {
+          const email = (c[PREFERRED_EMAIL_KEY] || '').trim() || (c[GOOGLE_EMAIL_KEY] || '').trim();
+          const zone = (c[ZONE_KEY] || '').trim();
+          const phone = normalizePhone(c[PHONE_KEY]);
+          const emailCell = email
+            ? '<a href="mailto:' + escapeHtml(email) + '">' + escapeHtml(email) + '</a>'
+            : '<span style="color:var(--text-secondary);">—</span>';
+          return '<tr><td>' + escapeHtml(c[NAME_KEY] || '—') + '</td><td>' + escapeHtml(zone) + '</td><td>' + escapeHtml(phone || '—') + '</td><td class="email-cell">' + emailCell + '</td></tr>';
+        }).join('');
+        listWrap.classList.remove('hidden');
+      }
+
+      function getActiveFiltersSummary() {
+        const parts = [];
+        const q = (document.getElementById('searchInput').value || '').trim();
+        if (q) parts.push('Search: "' + q + '"');
+        const z = (document.getElementById('filterZone').value || '').trim();
+        if (z) parts.push('Zone: ' + z);
+        const ct = (document.getElementById('filterCensusTract').value || '').trim();
+        if (ct) parts.push('Census tract: ' + ct);
+        const wd = (document.getElementById('filterWaterDistrict').value || '').trim();
+        if (wd) parts.push('Water district: ' + wd);
+        if (activeWorkingGroups.size) parts.push('Working groups: ' + [...activeWorkingGroups].join(', '));
+        if (activeInterests.size) parts.push('Interest areas: ' + [...activeInterests].join(', '));
+        return parts.length ? parts.join(' · ') : 'No filters applied (showing all captains)';
+      }
+
+      function openExportModal() {
+        const emails = getEmailsFromList(filteredList);
+        document.getElementById('modalFiltersSummary').textContent = getActiveFiltersSummary();
+        document.getElementById('modalCount').textContent = filteredList.length + ' captain' + (filteredList.length !== 1 ? 's' : '') + (emails.length ? ' · ' + emails.length + ' with email' : '');
+        document.getElementById('modalCopyEmails').disabled = emails.length === 0;
+        document.getElementById('exportModal').classList.remove('hidden');
+      }
+
+      function closeExportModal() {
+        document.getElementById('exportModal').classList.add('hidden');
+      }
+
+      function copyEmailsToClipboard() {
+        const emails = getEmailsFromList(filteredList);
+        if (emails.length === 0) return;
+        const blob = emails.join(', ');
+        navigator.clipboard.writeText(blob).then(() => {
+          const btn = document.getElementById('modalCopyEmails');
+          const orig = btn.textContent;
+          btn.textContent = 'Copied!';
+          setTimeout(() => { btn.textContent = orig; }, 2000);
+        }).catch(() => {
+          const btn = document.getElementById('modalCopyEmails');
+          const orig = btn.textContent;
+          btn.textContent = 'Copy failed';
+          setTimeout(() => { btn.textContent = orig; }, 2000);
+        });
+      }
+
+      function downloadCsv() {
+        const emails = getEmailsFromList(filteredList);
+        const headers = ['Name', 'Zone', 'Phone', 'Email'];
+        const rows = filteredList.map(c => {
+          const email = (c[PREFERRED_EMAIL_KEY] || '').trim() || (c[GOOGLE_EMAIL_KEY] || '').trim();
+          const zone = (c[ZONE_KEY] || '').trim();
+          const phone = normalizePhone(c[PHONE_KEY]);
+          const esc = v => '"' + String(v || '').replace(/"/g, '""') + '"';
+          return [esc(c[NAME_KEY] || ''), esc(zone), esc(phone), esc(email)].join(',');
+        });
+        const csv = [headers.join(','), ...rows].join('\n');
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'nc-directory-export.csv';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      function bindCopyEmailButtons() {
+        document.querySelectorAll('.copy-email-btn').forEach(btn => {
+          btn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const email = this.getAttribute('data-email');
+            if (email) {
+              navigator.clipboard.writeText(email).then(() => {
+                const orig = this.innerHTML;
+                this.innerHTML = '<span style="color:var(--accent-green);">✓</span>';
+                setTimeout(() => { this.innerHTML = orig; }, 1500);
+              });
+            }
+          };
+        });
+      }
+
+      function renderCards(list) {
+        const cardsEl = document.getElementById('cards');
+        const emptyEl = document.getElementById('empty');
+        cardsEl.classList.add('hidden');
+        emptyEl.classList.add('hidden');
+        if (list.length === 0) {
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+        cardsEl.innerHTML = list.map(c => {
+          const email = (c[PREFERRED_EMAIL_KEY] || '').trim() || (c[GOOGLE_EMAIL_KEY] || '').trim();
+          const phone = normalizePhone(c[PHONE_KEY]);
+          const wg = parseMultiSelect(c[WORKING_GROUP_KEY]);
+          const interests = parseMultiSelect(c[INTEREST_AREAS_KEY]);
+          const groupedInterests = groupSelectedInterests(interests);
+          const badges = parseMultiSelect(c[BADGES_KEY]);
+          const skills = (c[SKILLS_KEY] || '').trim();
+          const location = (c[LOCATION_KEY] || '').trim();
+          const notesBio = (c[NOTES_BIO_KEY] || '').trim();
+          const askMeAbout = (c[EXPERTISE_ASK_ME_KEY] || '').trim();
+          const zoneLine = [c[ZONE_KEY], c[CENSUS_TRACT_KEY]].filter(Boolean).join(' · ');
+          return '<div class="card">' +
+            '<h3>' + escapeHtml(c[NAME_KEY] || '—') + '</h3>' +
+            (zoneLine ? '<div class="zone">' + escapeHtml(zoneLine) + '</div>' : '') +
+            (location ? '<div class="location">' + escapeHtml(location) + '</div>' : '') +
+            (email ? '<div class="contact"><span class="email-wrap"><a href="mailto:' + escapeHtml(email) + '">' + escapeHtml(email) + '</a><button type="button" class="copy-email-btn" title="Copy email" data-email="' + escapeHtml(email) + '" aria-label="Copy email">' + copyIconSvg + '</button></span></div>' : '') +
+            (phone ? '<div class="contact">' + escapeHtml(phone) + '</div>' : '') +
+            (skills ? '<div class="bio">' + escapeHtml(skills.slice(0, 200)) + (skills.length > 200 ? '…' : '') + '</div>' : '') +
+            (notesBio ? '<div class="notes-bio">' + escapeHtml(notesBio) + '</div>' : '') +
+            (askMeAbout ? '<div class="tags-label">Ask Me About:</div><div class="ask-me-about">' + escapeHtml(askMeAbout) + '</div>' : '') +
+            (wg.length ? '<div class="tags-label">Working groups:</div><div class="tags">' + wg.map(x => '<span class="tag">' + escapeHtml(x) + '</span>').join('') + '</div>' : '') +
+            (groupedInterests.length ? '<div class="tags-label">Interest areas:</div><div class="interest-groups-block">' + groupedInterests.map(group => '<div class="interest-group"><div class="interest-group-label">' + escapeHtml(group.label) + '</div><div class="tags tags--interest">' + group.options.map(x => '<span class="tag">' + escapeHtml(x) + '</span>').join('') + '</div></div>').join('') + '</div>' : '') +
+            (badges.length ? '<div class="tags">' + badges.map(x => { const t = (x || '').trim(); const special = t === '1 Year of Service' ? ' badge-1year' : (t === 'Working Group Chair' ? ' badge-chair' : (t === 'Newsletter' ? ' badge-newsletter' : (t.toLowerCase() === 'dena native' ? ' badge-dena-native' : ''))); return '<span class="tag badge' + special + '">' + escapeHtml(x) + '</span>'; }).join('') + '</div>' : '') +
+            '</div>';
+        }).join('');
+        cardsEl.classList.remove('hidden');
+      }
+
+      function escapeHtml(s) {
+        if (s == null) return '';
+        const div = document.createElement('div');
+        div.textContent = s;
+        return div.innerHTML;
+      }
+
+      const KNOWN_WATER_DISTRICTS = ['Rubio Cañon', 'Rubio Canon', 'Lincoln Avenue', 'Las Flores', 'TBD'];
+
+      function resolveColumnKey(headers, candidates, sampleRows) {
+        if (!headers || !Array.isArray(headers)) return candidates[0];
+        const norm = (s) => (s || '').trim().toLowerCase();
+        for (const c of candidates) {
+          const found = headers.find(h => norm(h) === norm(c));
+          if (found) return found;
+        }
+        const waterLike = headers.find(h => norm(h).includes('water') && (norm(h).includes('district') || norm(h).includes('districts')));
+        if (waterLike) return waterLike;
+        if (sampleRows && sampleRows.length > 0) {
+          for (const h of headers) {
+            const vals = sampleRows.map(r => (r[h] || '').trim()).filter(Boolean);
+            const matches = vals.filter(v => KNOWN_WATER_DISTRICTS.some(k => norm(v) === norm(k) || v.includes('Rubio') || v.includes('Lincoln') || v.includes('Las Flores')));
+            if (matches.length > 0) return h;
+          }
+        }
+        return candidates[0];
+      }
+
+      function collectOptions(key) {
+        if (key === INTEREST_AREAS_KEY) return collectInterestOptions();
+        const set = new Set();
+        allCaptains.forEach(c => {
+          const val = c[key];
+          if (key === WORKING_GROUP_KEY || key === WATER_DISTRICT_KEY) parseMultiSelect(val).forEach(x => set.add(x));
+          else if (val && String(val).trim()) set.add(String(val).trim());
+        });
+        return [...set].sort();
+      }
+
+      function fillSelect(id, key) {
+        const sel = document.getElementById(id);
+        const options = collectOptions(key);
+        options.forEach(o => {
+          const opt = document.createElement('option');
+          opt.value = o;
+          opt.textContent = o;
+          sel.appendChild(opt);
+        });
+      }
+
+      function buildChips(containerId, key, activeSet) {
+        const container = document.getElementById(containerId);
+        const options = collectOptions(key);
+        if (!options.length) return;
+        container.innerHTML = '';
+        options.forEach(o => {
+          const chip = document.createElement('span');
+          chip.className = 'filter-chip';
+          chip.textContent = o;
+          chip.dataset.value = o;
+          if (activeSet.has(o)) chip.classList.add('active');
+          chip.addEventListener('click', () => {
+            if (activeSet.has(o)) activeSet.delete(o);
+            else activeSet.add(o);
+            chip.classList.toggle('active', activeSet.has(o));
+            applyFilters();
+          });
+          container.appendChild(chip);
+        });
+      }
+
+      function buildInterestAccordion() {
+        const container = document.getElementById('interestCheckboxes');
+        const accordion = document.getElementById('interestAccordion');
+        const header = document.getElementById('interestAccordionHeader');
+        const groups = getInterestAreaGroups();
+        container.innerHTML = '';
+        accordion.style.display = 'block';
+        header.onclick = () => accordion.classList.toggle('open');
+        if (!groups.length) {
+          const msg = document.createElement('p');
+          msg.className = 'accordion-empty';
+          msg.textContent = 'No interest areas in the directory yet.';
+          msg.style.fontSize = '0.9rem';
+          msg.style.color = 'var(--text-secondary)';
+          msg.style.margin = '0.5rem 0';
+          container.appendChild(msg);
+          return;
+        }
+        const groupsWrap = document.createElement('div');
+        groupsWrap.className = 'interest-filter-groups';
+        groups.forEach(group => {
+          const groupEl = document.createElement('section');
+          groupEl.className = 'interest-filter-group';
+          const title = document.createElement('h4');
+          title.className = 'interest-filter-group-title';
+          title.textContent = group.label;
+          groupEl.appendChild(title);
+          if (group.description) {
+            const copy = document.createElement('p');
+            copy.className = 'interest-filter-group-copy';
+            copy.textContent = group.description;
+            groupEl.appendChild(copy);
+          }
+          const grid = document.createElement('div');
+          grid.className = 'interest-filter-grid';
+          group.options.forEach(o => {
+            const label = document.createElement('label');
+            label.className = 'interest-filter-option';
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.value = o;
+            if (activeInterests.has(o)) cb.checked = true;
+            cb.addEventListener('change', () => {
+              if (cb.checked) activeInterests.add(o);
+              else activeInterests.delete(o);
+              applyFilters();
+            });
+            label.appendChild(cb);
+            label.appendChild(document.createTextNode(o));
+            grid.appendChild(label);
+          });
+          groupEl.appendChild(grid);
+          groupsWrap.appendChild(groupEl);
+        });
+        container.appendChild(groupsWrap);
+      }
+
+      function showError(msg) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('cards').classList.add('hidden');
+        document.getElementById('empty').classList.add('hidden');
+        const err = document.getElementById('error');
+        err.textContent = msg;
+        err.classList.remove('hidden');
+      }
+
+      fetch(API_URL)
+        .then(r => {
+          if (!r.ok) throw new Error(r.statusText || 'Failed to load directory');
+          return r.json();
+        })
+        .then(data => {
+          document.getElementById('loading').classList.add('hidden');
+          const headers = data.headers || [];
+          const rows = data.rows || [];
+          WATER_DISTRICT_KEY = resolveColumnKey(headers, WATER_DISTRICT_CANDIDATES, rows.slice(0, 50));
+          allCaptains = rows.filter(c => (c[NAME_KEY] || '').trim() || (c[PREFERRED_EMAIL_KEY] || '').trim() || (c[GOOGLE_EMAIL_KEY] || '').trim());
+          fillSelect('filterZone', ZONE_KEY);
+          fillSelect('filterCensusTract', CENSUS_TRACT_KEY);
+          fillSelect('filterWaterDistrict', WATER_DISTRICT_KEY);
+          buildChips('workingGroupChips', WORKING_GROUP_KEY, activeWorkingGroups);
+          const wgFormLink = document.getElementById('workingGroupsFormLink');
+          if (wgFormLink) wgFormLink.href = WORKING_GROUPS_FORM_URL;
+          const spreadsheetLink = document.getElementById('spreadsheetLink');
+          if (spreadsheetLink) spreadsheetLink.href = NC_DIRECTORY_SPREADSHEET_URL;
+          buildInterestAccordion();
+          document.getElementById('searchInput').addEventListener('input', applyFilters);
+          document.getElementById('filterZone').addEventListener('change', applyFilters);
+          document.getElementById('filterCensusTract').addEventListener('change', applyFilters);
+          document.getElementById('filterWaterDistrict').addEventListener('change', applyFilters);
+          document.getElementById('viewCards').addEventListener('click', () => {
+            viewMode = 'cards';
+            document.getElementById('viewCards').setAttribute('aria-pressed', 'true');
+            document.getElementById('viewList').setAttribute('aria-pressed', 'false');
+            document.getElementById('viewCards').classList.add('active');
+            document.getElementById('viewList').classList.remove('active');
+            renderView();
+          });
+          document.getElementById('viewList').addEventListener('click', () => {
+            viewMode = 'list';
+            document.getElementById('viewList').setAttribute('aria-pressed', 'true');
+            document.getElementById('viewCards').setAttribute('aria-pressed', 'false');
+            document.getElementById('viewList').classList.add('active');
+            document.getElementById('viewCards').classList.remove('active');
+            renderView();
+          });
+          document.getElementById('viewCards').classList.add('active');
+          document.getElementById('exportBtn').addEventListener('click', openExportModal);
+          document.getElementById('modalCopyEmails').addEventListener('click', copyEmailsToClipboard);
+          document.getElementById('modalDownloadCsv').addEventListener('click', downloadCsv);
+          document.getElementById('modalClose').addEventListener('click', closeExportModal);
+          document.getElementById('exportModal').addEventListener('click', function(e) {
+            if (e.target === this) closeExportModal();
+          });
+          applyFilters();
+        })
+        .catch(e => showError('Could not load directory. Make sure the server is running and the NC Directory sheet is shared correctly. ' + (e.message || '')));
+    })();
+  </script>
+</body>
+</html>
