@@ -364,6 +364,23 @@
       font-size: 0.86rem;
       line-height: 1.65;
     }
+    .completion-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      padding: 0.65rem 1rem;
+      color: var(--deep-space-blue);
+      background: var(--golden-orange);
+      border: 2px solid var(--deep-space-blue);
+      border-radius: var(--radius-small);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+    .completion-link:hover { background: #ffb326; transform: translateY(-1px); }
 
     footer {
       padding: 2rem 1rem;
@@ -460,6 +477,7 @@
 
           <div class="form-shell">
             <iframe
+              id="agreementsForm"
               src="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/viewform?embedded=true"
               title="Altagether Community Agreements signature form"
               loading="lazy">Loading…</iframe>
@@ -481,7 +499,8 @@
     <div class="completion" id="completion" role="status">
       <span aria-hidden="true">🌿</span>
       <h2>You’re ready for onboarding</h2>
-      <p>The registration link is in the confirmation message shown after you submit the Community Agreements form. Choose a session that works for you—we’re looking forward to meeting you.</p>
+      <p>Your next step is to register for a live onboarding session. Choose a session that works for you—we’re looking forward to meeting you.</p>
+      <a class="completion-link" href="./calendar/" target="_top">View available sessions →</a>
     </div>
   </main>
 
@@ -494,6 +513,7 @@
       const progressFill = document.getElementById("progressFill");
       const progressCount = document.getElementById("progressCount");
       const completion = document.getElementById("completion");
+      const agreementsForm = document.getElementById("agreementsForm");
 
       function readState() {
         try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
@@ -539,6 +559,19 @@
             if (nextCard) nextCard.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         });
+      });
+
+      agreementsForm.addEventListener("load", () => {
+        try {
+          const destination = new URL(agreementsForm.contentWindow.location.href);
+          const calendarPath = destination.pathname.replace(/\/+$/, "");
+
+          if (destination.origin === window.location.origin && calendarPath === "/join/calendar") {
+            window.location.assign(`${destination.pathname}${destination.search}${destination.hash}`);
+          }
+        } catch (error) {
+          // The Google Form is cross-origin until it navigates back to this site.
+        }
       });
 
       render();
