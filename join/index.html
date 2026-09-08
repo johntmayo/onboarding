@@ -318,42 +318,6 @@
       line-height: 1.45;
     }
 
-    .agreements-list {
-      margin: 1.1rem 0 1.35rem;
-      padding: 0;
-      list-style: none;
-      counter-reset: agreements;
-    }
-    .agreements-list li {
-      position: relative;
-      min-height: 42px;
-      margin: 0;
-      padding: 0.55rem 0 0.65rem 2.35rem;
-      color: var(--text-secondary);
-      border-bottom: 1px solid var(--border-color);
-      counter-increment: agreements;
-      font-family: var(--font-reading);
-      font-size: 0.86rem;
-      line-height: 1.58;
-    }
-    .agreements-list li:last-child { border-bottom: 0; }
-    .agreements-list li::before {
-      position: absolute;
-      top: 0.55rem;
-      left: 0;
-      display: grid;
-      width: 25px;
-      height: 25px;
-      place-items: center;
-      content: counter(agreements);
-      color: var(--deep-space-blue);
-      background: var(--muted-olive);
-      border-radius: 50%;
-      font-family: var(--font-ui);
-      font-size: 0.68rem;
-      font-weight: 900;
-    }
-
     .form-shell {
       margin-top: 1.35rem;
       overflow: hidden;
@@ -375,7 +339,7 @@
     .form-shell iframe {
       display: block;
       width: 100%;
-      min-height: 780px;
+      min-height: 975px;
       border: 0;
       background: #fff;
     }
@@ -431,7 +395,7 @@
       .step-number { width: 40px; height: 40px; }
       .done-button { width: 100%; }
       .agreements-actions .document-button { margin-left: 0; width: 100%; }
-      .form-shell iframe { min-height: 920px; }
+      .form-shell iframe { min-height: 1150px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -505,18 +469,7 @@
           </div>
         </div>
         <div class="card-body">
-          <p>If you’d like to continue, please read the agreements below. These are the baseline commitments every Neighborhood Captain makes when joining the network.</p>
-
-          <ol class="agreements-list">
-            <li>Treat everyone with respect and compassion.</li>
-            <li>Share information and resources openly with your neighbors unless they’ve directly asked you not to.</li>
-            <li>Be there for all your neighbors, even if you disagree on specific issues or topics.</li>
-            <li>Make a good faith effort to represent your whole neighborhood, not just your personal views or preferred outcomes.</li>
-            <li>Share accurate, timely information and avoid spreading rumors or unverified claims. Do the due diligence to be able to stand behind what you share.</li>
-            <li>Speak for yourself. Don’t speak on behalf of Altagether or other Neighborhood Captains without explicit permission—whether to the press, online, or out in the community.</li>
-            <li>When disagreements arise, model patience and respectfulness.</li>
-            <li>Acknowledge and respect different recovery paths. Whether someone chooses to rebuild, relocate, or sell, treat their decisions with grace, understanding, and without judgment.</li>
-          </ol>
+          <p>If you’d like to continue, please read the agreements below.</p>
 
           <div class="form-shell">
             <p class="form-label">Sign the Community Agreements</p>
