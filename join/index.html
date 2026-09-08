@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn about the Altagether Neighborhood Captain program, review and sign the Community Agreements, and take the next step toward onboarding.">
+  <title>Become a Neighborhood Captain | Altagether</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --deep-space-blue: #304059;
+      --deep-space-dark: #263448;
+      --golden-orange: #f59e09;
+      --porcelain: #fdfbf8;
+      --floral-white: #fffdf5;
+      --floral-white-warm: #fdf8ec;
+      --rosy-copper: #bc5839;
+      --muted-olive: #afc892;
+      --olive-deep: #6d844f;
+      --surface-white: #ffffff;
+      --text-primary: #1f2937;
+      --text-secondary: #4b5563;
+      --border-color: #e5e5e5;
+      --font-ui: "Chivo", Arial, sans-serif;
+      --font-reading: "Lora", Georgia, serif;
+      --radius-small: 4px;
+      --radius-medium: 8px;
+      --shadow: 4px 4px 0 var(--border-color);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text-primary);
+      background:
+        radial-gradient(circle at 8% 19%, rgba(175, 200, 146, 0.16), transparent 24rem),
+        radial-gradient(circle at 94% 45%, rgba(245, 158, 9, 0.10), transparent 23rem),
+        var(--porcelain);
+      font-family: var(--font-ui);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--golden-orange);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 0.75rem;
+      left: 0.75rem;
+      padding: 0.7rem 1rem;
+      color: #fff;
+      background: var(--deep-space-dark);
+      border-radius: var(--radius-small);
+      transform: translateY(-160%);
+      transition: transform 160ms ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 2.8rem 1.25rem 2.5rem;
+      color: #fff;
+      text-align: center;
+      background: var(--deep-space-blue);
+      border-bottom: 3px solid var(--text-primary);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      border: 2px solid rgba(255,255,255,.08);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::before { width: 290px; height: 290px; top: -210px; left: -50px; }
+    .hero::after { width: 220px; height: 220px; right: -85px; bottom: -160px; }
+
+    .eyebrow {
+      position: relative;
+      margin: 0 0 0.7rem;
+      color: var(--golden-orange);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto 0.8rem;
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.06;
+    }
+
+    .hero-copy {
+      position: relative;
+      max-width: 610px;
+      margin: 0 auto;
+      color: rgba(255,255,255,.82);
+      font-family: var(--font-reading);
+      font-size: 0.98rem;
+      line-height: 1.72;
+    }
+
+    .progress-shell {
+      position: sticky;
+      z-index: 8;
+      top: 0;
+      color: #fff;
+      background: var(--deep-space-blue);
+      box-shadow: 0 4px 12px rgba(31,41,55,.14);
+    }
+
+    .progress-inner {
+      display: grid;
+      grid-template-columns: auto minmax(120px,1fr) auto;
+      gap: 0.9rem;
+      align-items: center;
+      width: min(760px, calc(100% - 2rem));
+      min-height: 52px;
+      margin: 0 auto;
+    }
+
+    .progress-label,
+    .progress-count {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+    }
+    .progress-count { color: rgba(255,255,255,.66); }
+
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      background: rgba(255,255,255,.18);
+      border-radius: 999px;
+    }
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--golden-orange);
+      border-radius: inherit;
+      transition: width 250ms ease;
+    }
+
+    main {
+      width: min(760px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2rem 0 4.5rem;
+    }
+
+    .welcome {
+      margin-bottom: 1.6rem;
+      padding: 1.25rem 1.4rem;
+      background: var(--floral-white-warm);
+      border: 2px solid var(--golden-orange);
+      border-radius: var(--radius-medium);
+      font-family: var(--font-reading);
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+    .welcome strong { color: var(--deep-space-blue); }
+    .welcome a { color: var(--deep-space-blue); font-weight: 700; text-underline-offset: 2px; }
+
+    .journey { display: grid; gap: 1.2rem; }
+
+    .action-card {
+      overflow: hidden;
+      background: var(--surface-white);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-medium);
+      box-shadow: var(--shadow);
+    }
+    .action-card[data-complete="true"] {
+      border-color: var(--muted-olive);
+      box-shadow: 4px 4px 0 rgba(175,200,146,.45);
+    }
+
+    .card-heading {
+      display: grid;
+      grid-template-columns: 46px minmax(0,1fr);
+      gap: 1rem;
+      align-items: center;
+      padding: 1.25rem 1.35rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .step-number {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      color: var(--deep-space-blue);
+      background: var(--golden-orange);
+      border: 2px solid var(--deep-space-blue);
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 900;
+    }
+    [data-complete="true"] .step-number { font-size: 0; background: var(--muted-olive); }
+    [data-complete="true"] .step-number::after { content: "✓"; font-size: 1rem; }
+
+    .card-heading h2 {
+      margin: 0 0 0.2rem;
+      color: var(--deep-space-blue);
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      line-height: 1.25;
+    }
+    .card-heading p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+    }
+
+    .card-body { padding: 1.4rem; }
+    .card-body > p,
+    .reading-copy {
+      margin: 0 0 1rem;
+      color: var(--text-secondary);
+      font-family: var(--font-reading);
+      font-size: 0.92rem;
+      line-height: 1.72;
+    }
+    .card-body > p strong,
+    .reading-copy strong { color: var(--text-primary); }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      margin: 1rem 0 1.15rem;
+      background: #111827;
+      border: 2px solid var(--deep-space-blue);
+      border-radius: var(--radius-small);
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+
+    .document-button {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 0.85rem;
+      color: var(--deep-space-blue);
+      background: var(--surface-white);
+      border: 2px solid var(--deep-space-blue);
+      border-radius: var(--radius-small);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+    .document-button:hover {
+      background: var(--floral-white-warm);
+      transform: translateY(-1px);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin-top: 1.1rem;
+    }
+
+    .agreements-actions .document-button { margin-left: auto; }
+
+    .done-button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1rem;
+      color: var(--deep-space-blue);
+      background: var(--golden-orange);
+      border: 2px solid var(--deep-space-blue);
+      border-radius: var(--radius-small);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+    .done-button:hover { background: #ffb326; transform: translateY(-1px); }
+    [data-complete="true"] .done-button { background: var(--muted-olive); }
+
+    .button-help {
+      flex-basis: 100%;
+      margin: 0;
+      color: var(--text-secondary);
+      font-size: 0.73rem;
+      line-height: 1.45;
+    }
+
+    .agreements-list {
+      margin: 1.1rem 0 1.35rem;
+      padding: 0;
+      list-style: none;
+      counter-reset: agreements;
+    }
+    .agreements-list li {
+      position: relative;
+      min-height: 42px;
+      margin: 0;
+      padding: 0.55rem 0 0.65rem 2.35rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-color);
+      counter-increment: agreements;
+      font-family: var(--font-reading);
+      font-size: 0.86rem;
+      line-height: 1.58;
+    }
+    .agreements-list li:last-child { border-bottom: 0; }
+    .agreements-list li::before {
+      position: absolute;
+      top: 0.55rem;
+      left: 0;
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      content: counter(agreements);
+      color: var(--deep-space-blue);
+      background: var(--muted-olive);
+      border-radius: 50%;
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 900;
+    }
+
+    .form-shell {
+      margin-top: 1.35rem;
+      overflow: hidden;
+      background: #fff;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-small);
+    }
+    .form-label {
+      margin: 0;
+      padding: 0.8rem 1rem;
+      color: var(--deep-space-blue);
+      background: var(--floral-white);
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .form-shell iframe {
+      display: block;
+      width: 100%;
+      min-height: 780px;
+      border: 0;
+      background: #fff;
+    }
+
+    .next-step {
+      margin-top: 1.35rem;
+      padding: 1.1rem 1.2rem;
+      color: var(--deep-space-blue);
+      background: rgba(175,200,146,.24);
+      border-left: 5px solid var(--olive-deep);
+      border-radius: var(--radius-small);
+      font-family: var(--font-reading);
+      font-size: 0.88rem;
+      line-height: 1.62;
+    }
+    .next-step strong { color: var(--deep-space-blue); }
+
+    .completion {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.6rem;
+      text-align: center;
+      background: var(--floral-white-warm);
+      border: 2px solid var(--golden-orange);
+      border-radius: var(--radius-medium);
+      box-shadow: var(--shadow);
+    }
+    .completion.visible { display: block; }
+    .completion span { font-size: 2rem; }
+    .completion h2 { margin: 0.35rem 0; color: var(--deep-space-blue); font-size: 1.35rem; }
+    .completion p {
+      margin: 0;
+      color: var(--text-secondary);
+      font-family: var(--font-reading);
+      font-size: 0.86rem;
+      line-height: 1.65;
+    }
+
+    footer {
+      padding: 2rem 1rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-size: 0.78rem;
+    }
+    footer a { color: var(--deep-space-blue); font-weight: 700; text-underline-offset: 2px; }
+
+    @media (max-width: 620px) {
+      .hero { padding-top: 2.3rem; }
+      .progress-inner { grid-template-columns: minmax(0,1fr) auto; }
+      .progress-label { display: none; }
+      .card-heading, .card-body { padding-left: 1rem; padding-right: 1rem; }
+      .card-heading { grid-template-columns: 40px minmax(0,1fr); gap: 0.75rem; }
+      .step-number { width: 40px; height: 40px; }
+      .done-button { width: 100%; }
+      .agreements-actions .document-button { margin-left: 0; width: 100%; }
+      .form-shell iframe { min-height: 920px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to onboarding steps</a>
+
+  <header class="hero">
+    <p class="eyebrow">Altagether · Neighborhood Captain Program</p>
+    <h1>Becoming a Neighborhood Captain</h1>
+    <p class="hero-copy">You’ve already told us you’re interested. Now take a few minutes to learn what the role actually looks like—and, if it feels like a good fit, take the next step toward joining the network.</p>
+  </header>
+
+  <div class="progress-shell" aria-label="Onboarding progress">
+    <div class="progress-inner">
+      <span class="progress-label">Your next steps</span>
+      <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="progress-count" id="progressCount" aria-live="polite">0 of 2 complete</span>
+    </div>
+  </div>
+
+  <main id="main">
+    <aside class="welcome">
+      <strong>Thanks for raising your hand.</strong> Start by watching the short orientation below. If the Neighborhood Captain program feels right for you, read and sign the Community Agreements. Once you submit them, the link to register for an in-person onboarding session will appear in the confirmation message in the form. Questions? Email <a href="mailto:info@altagether.org">info@altagether.org</a>.
+    </aside>
+
+    <div class="journey">
+      <section class="action-card" id="videoCard" data-step="video" data-complete="false" aria-labelledby="videoTitle">
+        <div class="card-heading">
+          <div class="step-number" aria-hidden="true">1</div>
+          <div>
+            <h2 id="videoTitle">Watch the Neighborhood Captain orientation</h2>
+            <p>About four minutes · What the role is, what it asks of you, and how Altagether supports captains</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>This short video gives you the big picture. You do not need to know everything before onboarding—this is simply a chance to decide whether the role sounds like something you want to pursue.</p>
+
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/hvAB20sbdBg?rel=0"
+              title="Neighborhood Captain program orientation"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+
+
+          <div class="button-row">
+            <button class="done-button" type="button" data-mark-complete="video">✓ I watched the orientation</button>
+            <p class="button-help">When you’re finished, mark this step complete and move on to the Community Agreements.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="action-card" id="agreementsCard" data-step="agreements" data-complete="false" aria-labelledby="agreementsTitle">
+        <div class="card-heading">
+          <div class="step-number" aria-hidden="true">2</div>
+          <div>
+            <h2 id="agreementsTitle">Read &amp; sign the Community Agreements</h2>
+            <p>Shared commitments for how Neighborhood Captains show up for neighbors and for one another</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>If you’d like to continue, please read the agreements below. These are the baseline commitments every Neighborhood Captain makes when joining the network.</p>
+
+          <ol class="agreements-list">
+            <li>Treat everyone with respect and compassion.</li>
+            <li>Share information and resources openly with your neighbors unless they’ve directly asked you not to.</li>
+            <li>Be there for all your neighbors, even if you disagree on specific issues or topics.</li>
+            <li>Make a good faith effort to represent your whole neighborhood, not just your personal views or preferred outcomes.</li>
+            <li>Share accurate, timely information and avoid spreading rumors or unverified claims. Do the due diligence to be able to stand behind what you share.</li>
+            <li>Speak for yourself. Don’t speak on behalf of Altagether or other Neighborhood Captains without explicit permission—whether to the press, online, or out in the community.</li>
+            <li>When disagreements arise, model patience and respectfulness.</li>
+            <li>Acknowledge and respect different recovery paths. Whether someone chooses to rebuild, relocate, or sell, treat their decisions with grace, understanding, and without judgment.</li>
+          </ol>
+
+          <div class="form-shell">
+            <p class="form-label">Sign the Community Agreements</p>
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/viewform?embedded=true"
+              title="Altagether Community Agreements signature form"
+              loading="lazy">Loading…</iframe>
+          </div>
+
+          <div class="next-step">
+            <strong>What happens after you sign?</strong> Once you submit the Community Agreements, the link to register for an in-person onboarding session will appear in the confirmation message in the form above. You must attend an onboarding before becoming a Neighborhood Captain.
+          </div>
+
+          <div class="button-row agreements-actions">
+            <button class="done-button" type="button" data-mark-complete="agreements">✓ I signed the agreements</button>
+            <a class="document-button" href="../Neighborhood Captain Expectations [August 2026].pdf" target="_blank" rel="noopener">Full expectations document ↗</a>
+            <p class="button-help">After submitting the embedded form above, mark this step complete. The registration link will appear in the form’s confirmation message.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="completion" id="completion" role="status">
+      <span aria-hidden="true">🌿</span>
+      <h2>You’re ready for onboarding</h2>
+      <p>The registration link is in the confirmation message shown after you submit the Community Agreements form. Choose a session that works for you—we’re looking forward to meeting you.</p>
+    </div>
+  </main>
+
+  <footer>Altagether · Neighbors helping neighbors · <a href="mailto:info@altagether.org">info@altagether.org</a></footer>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = "altagether_new_captain_onboarding";
+      const steps = ["video", "agreements"];
+      const progressFill = document.getElementById("progressFill");
+      const progressCount = document.getElementById("progressCount");
+      const completion = document.getElementById("completion");
+
+      function readState() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+        catch (error) { return {}; }
+      }
+
+      function writeState(state) {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+        catch (error) {}
+      }
+
+      function render() {
+        const state = readState();
+        let completeCount = 0;
+
+        steps.forEach((step) => {
+          const isComplete = Boolean(state[step]);
+          const card = document.querySelector(`[data-step="${step}"]`);
+          const button = document.querySelector(`[data-mark-complete="${step}"]`);
+          card.dataset.complete = String(isComplete);
+          button.textContent = isComplete
+            ? "↩ Mark as not complete"
+            : step === "video" ? "✓ I watched the orientation" : "✓ I signed the agreements";
+          if (isComplete) completeCount += 1;
+        });
+
+        progressFill.style.width = `${Math.round((completeCount / steps.length) * 100)}%`;
+        progressCount.textContent = `${completeCount} of ${steps.length} complete`;
+        completion.classList.toggle("visible", completeCount === steps.length);
+      }
+
+      document.querySelectorAll("[data-mark-complete]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const step = button.dataset.markComplete;
+          const state = readState();
+          state[step] = !state[step];
+          writeState(state);
+          render();
+
+          if (state[step]) {
+            const currentIndex = steps.indexOf(step);
+            const nextCard = document.querySelector(`[data-step="${steps[currentIndex + 1]}"]`);
+            if (nextCard) nextCard.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

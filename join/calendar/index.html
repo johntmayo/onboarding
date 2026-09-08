@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Choose a live Zoom onboarding session for the Altagether Neighborhood Captain program.">
+  <title>Neighborhood Captain Onboarding Sessions | Altagether</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --deep-space-blue:#304059; --deep-space-dark:#263448; --golden-orange:#f59e09;
+      --porcelain:#fdfbf8; --floral-white:#fffdf5; --floral-white-warm:#fdf8ec;
+      --rosy-copper:#bc5839; --muted-olive:#afc892; --olive-deep:#6d844f;
+      --surface-white:#fff; --text-primary:#1f2937; --text-secondary:#4b5563;
+      --border-color:#e5e5e5; --font-ui:"Chivo",Arial,sans-serif;
+      --font-reading:"Lora",Georgia,serif; --radius-small:4px; --radius-medium:8px;
+      --shadow:4px 4px 0 var(--border-color);
+    }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; min-height:100vh; color:var(--text-primary);
+      background:
+        radial-gradient(circle at 8% 19%, rgba(175,200,146,.16), transparent 24rem),
+        radial-gradient(circle at 94% 45%, rgba(245,158,9,.10), transparent 23rem),
+        var(--porcelain);
+      font-family:var(--font-ui); font-size:16px; line-height:1.5;
+    }
+    a { color:inherit; }
+    :focus-visible { outline:3px solid var(--golden-orange); outline-offset:3px; }
+    .skip-link { position:fixed; z-index:20; top:.75rem; left:.75rem; padding:.7rem 1rem; color:#fff; background:var(--deep-space-dark); border-radius:var(--radius-small); transform:translateY(-160%); transition:transform 160ms ease; }
+    .skip-link:focus { transform:translateY(0); }
+
+    .hero { position:relative; overflow:hidden; padding:2.8rem 1.25rem 2.5rem; color:#fff; text-align:center; background:var(--deep-space-blue); border-bottom:3px solid var(--text-primary); }
+    .hero::before,.hero::after { position:absolute; content:""; border:2px solid rgba(255,255,255,.08); border-radius:50%; pointer-events:none; }
+    .hero::before { width:290px;height:290px;top:-210px;left:-50px; }
+    .hero::after { width:220px;height:220px;right:-85px;bottom:-160px; }
+    .eyebrow { position:relative; margin:0 0 .7rem; color:var(--golden-orange); font-size:.72rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+    .hero h1 { position:relative; max-width:780px; margin:0 auto .8rem; font-size:clamp(2rem,6vw,3.6rem); font-weight:900; letter-spacing:-.035em; line-height:1.06; }
+    .hero-copy { position:relative; max-width:620px; margin:0 auto; color:rgba(255,255,255,.82); font-family:var(--font-reading); font-size:.98rem; line-height:1.72; }
+
+    main { width:min(1050px, calc(100% - 2rem)); margin:0 auto; padding:2rem 0 4.5rem; }
+    .check-card { max-width:760px; margin:0 auto 2rem; overflow:hidden; background:var(--surface-white); border:2px solid var(--border-color); border-radius:var(--radius-medium); box-shadow:var(--shadow); }
+    .check-head { padding:1.25rem 1.4rem; border-bottom:1px solid var(--border-color); }
+    .check-head h2 { margin:0 0 .3rem; color:var(--deep-space-blue); font-size:1.35rem; }
+    .check-head p { margin:0; color:var(--text-secondary); font-family:var(--font-reading); font-size:.9rem; line-height:1.6; }
+    .checklist { display:grid; gap:.65rem; margin:0; padding:1.2rem 1.4rem 1.35rem; list-style:none; }
+    .checklist li { display:grid; grid-template-columns:30px minmax(0,1fr); gap:.7rem; align-items:start; color:var(--text-secondary); font-family:var(--font-reading); font-size:.9rem; line-height:1.55; }
+    .checkmark { display:grid; place-items:center; width:26px; height:26px; margin-top:1px; color:var(--deep-space-blue); background:var(--muted-olive); border:1px solid var(--deep-space-blue); border-radius:50%; font-family:var(--font-ui); font-size:.78rem; font-weight:900; }
+    .doc-row { padding:0 1.4rem 1.4rem; }
+    .secondary-button { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:.65rem .95rem; color:var(--deep-space-blue); background:#fff; border:2px solid var(--deep-space-blue); border-radius:var(--radius-small); font-size:.8rem; font-weight:700; text-decoration:none; }
+    .secondary-button:hover { background:var(--floral-white-warm); }
+
+    .calendar-intro { max-width:760px; margin:0 auto 1.15rem; text-align:left; }
+    .section-kicker { margin:0 0 .4rem; color:var(--golden-orange); font-size:.72rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
+    .calendar-intro h2 { margin:0 0 .4rem; color:var(--deep-space-blue); font-size:clamp(1.55rem,4vw,2.15rem); line-height:1.2; }
+    .calendar-intro p { margin:0; color:var(--text-secondary); font-family:var(--font-reading); font-size:.92rem; line-height:1.65; }
+
+    .calendar-stack { display:grid; gap:1.5rem; }
+    .month-card { background:var(--surface-white); border:2px solid var(--border-color); border-radius:var(--radius-medium); box-shadow:var(--shadow); overflow:hidden; }
+    .month-title { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1.15rem; color:#fff; background:var(--deep-space-blue); border-bottom:2px solid var(--text-primary); }
+    .month-title h3 { margin:0; font-size:1.18rem; }
+    .month-title span { color:rgba(255,255,255,.68); font-size:.75rem; font-weight:700; }
+    .weekday-row,.month-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); }
+    .weekday { padding:.65rem .35rem; color:var(--deep-space-blue); background:var(--floral-white-warm); border-bottom:1px solid var(--border-color); border-right:1px solid var(--border-color); text-align:center; font-size:.7rem; font-weight:900; letter-spacing:.04em; text-transform:uppercase; }
+    .weekday:last-child { border-right:0; }
+    .day { min-height:112px; padding:.55rem; border-right:1px solid var(--border-color); border-bottom:1px solid var(--border-color); background:#fff; }
+    .month-grid .day:nth-child(7n) { border-right:0; }
+    .day.empty { background:#faf9f6; }
+    .date-num { display:block; margin-bottom:.4rem; color:var(--text-secondary); font-size:.72rem; font-weight:700; }
+    .day.has-session { background:linear-gradient(180deg, rgba(245,158,9,.07), #fff 42%); }
+    .day.has-session .date-num { color:var(--deep-space-blue); font-weight:900; }
+    .session-link { display:block; margin-top:.35rem; padding:.48rem .5rem; color:var(--deep-space-blue); background:var(--golden-orange); border:2px solid var(--deep-space-blue); border-radius:var(--radius-small); font-size:.72rem; font-weight:900; line-height:1.2; text-decoration:none; }
+    .session-link:hover { background:#ffb326; transform:translateY(-1px); }
+    .session-link + .session-link { margin-top:.4rem; }
+    .session-link small { display:block; margin-top:.18rem; font-size:.62rem; font-weight:700; opacity:.8; }
+
+    .help { max-width:760px; margin:2rem auto 0; padding:1.15rem 1.3rem; color:var(--text-secondary); background:var(--floral-white-warm); border:2px solid var(--golden-orange); border-radius:var(--radius-medium); font-family:var(--font-reading); font-size:.88rem; line-height:1.6; }
+    .help strong,.help a { color:var(--deep-space-blue); }
+    .help a { font-weight:700; text-underline-offset:2px; }
+    footer { padding:2rem 1rem; color:var(--text-secondary); text-align:center; font-size:.76rem; }
+
+    .mobile-agenda { display:none; }
+
+    @media (max-width:760px) {
+      main { width:min(100% - 2rem, 760px); }
+      .desktop-calendars { display:none; }
+      .mobile-agenda { display:grid; gap:1rem; }
+      .agenda-month { background:#fff; border:2px solid var(--border-color); border-radius:var(--radius-medium); box-shadow:var(--shadow); overflow:hidden; }
+      .agenda-month h3 { margin:0; padding:.9rem 1rem; color:#fff; background:var(--deep-space-blue); font-size:1rem; }
+      .agenda-list { display:grid; }
+      .agenda-row { display:grid; grid-template-columns:76px minmax(0,1fr); gap:.8rem; align-items:center; padding:.85rem 1rem; border-bottom:1px solid var(--border-color); text-decoration:none; }
+      .agenda-row:last-child { border-bottom:0; }
+      .agenda-date { color:var(--deep-space-blue); font-size:.78rem; font-weight:900; line-height:1.25; text-transform:uppercase; }
+      .agenda-time { display:flex; align-items:center; justify-content:space-between; gap:.75rem; color:var(--text-primary); font-size:.9rem; font-weight:700; }
+      .agenda-time span:last-child { color:var(--deep-space-blue); font-size:.72rem; }
+      .agenda-row:hover { background:var(--floral-white-warm); }
+    }
+    @media (max-width:520px) {
+      .hero { padding-top:2.3rem; }
+      .check-head,.checklist,.doc-row { padding-left:1rem; padding-right:1rem; }
+      .agenda-row { grid-template-columns:68px minmax(0,1fr); padding:.8rem .85rem; }
+      .secondary-button { width:100%; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { transition-duration:.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to onboarding sessions</a>
+
+  <header class="hero">
+    <p class="eyebrow">Altagether · Neighborhood Captain Program</p>
+    <h1>Choose your onboarding session</h1>
+    <p class="hero-copy">You’re almost there. Choose a live Zoom onboarding session below to learn more, ask questions, and get ready to begin as a Neighborhood Captain.</p>
+  </header>
+
+  <main id="main">
+    <section class="check-card" aria-labelledby="beforeTitle">
+      <div class="check-head">
+        <h2 id="beforeTitle">Before you register</h2>
+        <p>At this point, you should have completed these three steps:</p>
+      </div>
+      <ol class="checklist">
+        <li><span class="checkmark" aria-hidden="true">✓</span><span>Watched the Neighborhood Captain orientation video.</span></li>
+        <li><span class="checkmark" aria-hidden="true">✓</span><span>Signed the Altagether Community Agreements.</span></li>
+        <li><span class="checkmark" aria-hidden="true">✓</span><span>Read through the full Neighborhood Captain Expectations.</span></li>
+      </ol>
+      <div class="doc-row">
+        <a class="secondary-button" href="../../Neighborhood Captain Expectations [August 2026].pdf" target="_blank" rel="noopener">View full expectations document</a>
+      </div>
+    </section>
+
+    <section class="calendar-intro">
+      <p class="section-kicker">Live Zoom onboarding</p>
+      <h2>Pick the session that works for you</h2>
+      <p>Click any available time below to open its Zoom registration page.</p>
+    </section>
+
+    <div class="desktop-calendars calendar-stack">
+      <section class="month-card" aria-labelledby="sepTitle">
+        <div class="month-title"><h3 id="sepTitle">September 2026</h3><span>9 sessions</span></div>
+        <div class="weekday-row" aria-hidden="true">
+          <div class="weekday">Sun</div><div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div>
+        </div>
+        <div class="month-grid">
+          <div class="day empty"></div><div class="day empty"></div>
+          <div class="day"><span class="date-num">1</span></div><div class="day"><span class="date-num">2</span></div><div class="day"><span class="date-num">3</span></div><div class="day"><span class="date-num">4</span></div><div class="day"><span class="date-num">5</span></div>
+          <div class="day"><span class="date-num">6</span></div><div class="day"><span class="date-num">7</span></div><div class="day"><span class="date-num">8</span></div><div class="day"><span class="date-num">9</span></div>
+          <div class="day has-session"><span class="date-num">10</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/2OZdILzfSTWxxLammdtqOw" target="_blank" rel="noopener">5:30 PM<small>Register →</small></a></div>
+          <div class="day has-session"><span class="date-num">11</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/u_ElKvx9T8WrWIK_4JMNgA" target="_blank" rel="noopener">10:30 AM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">12</span></div>
+          <div class="day"><span class="date-num">13</span></div><div class="day"><span class="date-num">14</span></div><div class="day"><span class="date-num">15</span></div>
+          <div class="day has-session"><span class="date-num">16</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/rQsGTuDZQaa4y_CVKfnFiA" target="_blank" rel="noopener">11:00 AM<small>Register →</small></a><a class="session-link" href="https://us06web.zoom.us/meeting/register/T5LH-wUYSvCNaC-gSLiWVg" target="_blank" rel="noopener">5:00 PM<small>Register →</small></a></div>
+          <div class="day has-session"><span class="date-num">17</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/hEJep8SoT_SKTMHbiV54wQ" target="_blank" rel="noopener">1:00 PM<small>Register →</small></a><a class="session-link" href="https://us06web.zoom.us/meeting/register/rFOY16O5QFKHlCUHRKtK6g" target="_blank" rel="noopener">7:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">18</span></div><div class="day"><span class="date-num">19</span></div>
+          <div class="day"><span class="date-num">20</span></div>
+          <div class="day has-session"><span class="date-num">21</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/o0vK3NfKQXedCIK9kLj11A" target="_blank" rel="noopener">6:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">22</span></div>
+          <div class="day has-session"><span class="date-num">23</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/BcrLfQb0Qlq0WwI5HlzqFA" target="_blank" rel="noopener">12:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">24</span></div><div class="day"><span class="date-num">25</span></div><div class="day"><span class="date-num">26</span></div>
+          <div class="day"><span class="date-num">27</span></div><div class="day"><span class="date-num">28</span></div><div class="day"><span class="date-num">29</span></div>
+          <div class="day has-session"><span class="date-num">30</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/odGKa33zTC2DHDzbxK_IDw" target="_blank" rel="noopener">2:00 PM<small>Register →</small></a></div>
+          <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+        </div>
+      </section>
+
+      <section class="month-card" aria-labelledby="octTitle">
+        <div class="month-title"><h3 id="octTitle">October 2026</h3><span>3 sessions</span></div>
+        <div class="weekday-row" aria-hidden="true">
+          <div class="weekday">Sun</div><div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div>
+        </div>
+        <div class="month-grid">
+          <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
+          <div class="day has-session"><span class="date-num">1</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/vZCuRGd7SJGJLcyNfi5GZA" target="_blank" rel="noopener">6:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">2</span></div><div class="day"><span class="date-num">3</span></div>
+          <div class="day"><span class="date-num">4</span></div><div class="day"><span class="date-num">5</span></div><div class="day"><span class="date-num">6</span></div><div class="day"><span class="date-num">7</span></div>
+          <div class="day has-session"><span class="date-num">8</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/ievNxLm4QYSDjEYRchUahw" target="_blank" rel="noopener">11:00 AM<small>Register →</small></a><a class="session-link" href="https://us06web.zoom.us/meeting/register/9Dq1x9HxS7uwSBkJfNuRxg" target="_blank" rel="noopener">6:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">9</span></div><div class="day"><span class="date-num">10</span></div>
+          <div class="day"><span class="date-num">11</span></div><div class="day"><span class="date-num">12</span></div><div class="day"><span class="date-num">13</span></div><div class="day"><span class="date-num">14</span></div><div class="day"><span class="date-num">15</span></div><div class="day"><span class="date-num">16</span></div><div class="day"><span class="date-num">17</span></div>
+          <div class="day"><span class="date-num">18</span></div><div class="day"><span class="date-num">19</span></div><div class="day"><span class="date-num">20</span></div><div class="day"><span class="date-num">21</span></div><div class="day"><span class="date-num">22</span></div><div class="day"><span class="date-num">23</span></div><div class="day"><span class="date-num">24</span></div>
+          <div class="day"><span class="date-num">25</span></div><div class="day"><span class="date-num">26</span></div><div class="day"><span class="date-num">27</span></div><div class="day"><span class="date-num">28</span></div><div class="day"><span class="date-num">29</span></div><div class="day"><span class="date-num">30</span></div><div class="day"><span class="date-num">31</span></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mobile-agenda" aria-label="Onboarding sessions">
+      <section class="agenda-month">
+        <h3>September 2026</h3>
+        <div class="agenda-list">
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/2OZdILzfSTWxxLammdtqOw" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Sep 10</span><span class="agenda-time"><span>5:30 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/u_ElKvx9T8WrWIK_4JMNgA" target="_blank" rel="noopener"><span class="agenda-date">Fri<br>Sep 11</span><span class="agenda-time"><span>10:30 AM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/rQsGTuDZQaa4y_CVKfnFiA" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 16</span><span class="agenda-time"><span>11:00 AM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/T5LH-wUYSvCNaC-gSLiWVg" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 16</span><span class="agenda-time"><span>5:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/hEJep8SoT_SKTMHbiV54wQ" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Sep 17</span><span class="agenda-time"><span>1:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/rFOY16O5QFKHlCUHRKtK6g" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Sep 17</span><span class="agenda-time"><span>7:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/o0vK3NfKQXedCIK9kLj11A" target="_blank" rel="noopener"><span class="agenda-date">Mon<br>Sep 21</span><span class="agenda-time"><span>6:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/BcrLfQb0Qlq0WwI5HlzqFA" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 23</span><span class="agenda-time"><span>12:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/odGKa33zTC2DHDzbxK_IDw" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 30</span><span class="agenda-time"><span>2:00 PM</span><span>Register →</span></span></a>
+        </div>
+      </section>
+      <section class="agenda-month">
+        <h3>October 2026</h3>
+        <div class="agenda-list">
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/vZCuRGd7SJGJLcyNfi5GZA" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Oct 1</span><span class="agenda-time"><span>6:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/ievNxLm4QYSDjEYRchUahw" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Oct 8</span><span class="agenda-time"><span>11:00 AM</span><span>Register →</span></span></a>
+          <a class="agenda-row" href="https://us06web.zoom.us/meeting/register/9Dq1x9HxS7uwSBkJfNuRxg" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Oct 8</span><span class="agenda-time"><span>6:00 PM</span><span>Register →</span></span></a>
+        </div>
+      </section>
+    </div>
+
+    <aside class="help">Questions before you register? Email <a href="mailto:info@altagether.org">info@altagether.org</a>.</aside>
+  </main>
+
+  <footer>Altagether · Neighborhood Captain Program</footer>
+</body>
+</html>
