@@ -48,8 +48,6 @@
     }
 
     a { color: inherit; }
-    button { font: inherit; }
-
     :focus-visible {
       outline: 3px solid var(--golden-orange);
       outline-offset: 3px;
@@ -120,47 +118,6 @@
       line-height: 1.72;
     }
 
-    .progress-shell {
-      position: sticky;
-      z-index: 8;
-      top: 0;
-      color: #fff;
-      background: var(--deep-space-blue);
-      box-shadow: 0 4px 12px rgba(31,41,55,.14);
-    }
-
-    .progress-inner {
-      display: grid;
-      grid-template-columns: auto minmax(120px,1fr) auto;
-      gap: 0.9rem;
-      align-items: center;
-      width: min(760px, calc(100% - 2rem));
-      min-height: 52px;
-      margin: 0 auto;
-    }
-
-    .progress-label,
-    .progress-count {
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.035em;
-    }
-    .progress-count { color: rgba(255,255,255,.66); }
-
-    .progress-track {
-      height: 8px;
-      overflow: hidden;
-      background: rgba(255,255,255,.18);
-      border-radius: 999px;
-    }
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      background: var(--golden-orange);
-      border-radius: inherit;
-      transition: width 250ms ease;
-    }
-
     main {
       width: min(760px, calc(100% - 2rem));
       margin: 0 auto;
@@ -189,11 +146,6 @@
       border-radius: var(--radius-medium);
       box-shadow: var(--shadow);
     }
-    .action-card[data-complete="true"] {
-      border-color: var(--muted-olive);
-      box-shadow: 4px 4px 0 rgba(175,200,146,.45);
-    }
-
     .card-heading {
       display: grid;
       grid-template-columns: 46px minmax(0,1fr);
@@ -215,9 +167,6 @@
       font-size: 0.9rem;
       font-weight: 900;
     }
-    [data-complete="true"] .step-number { font-size: 0; background: var(--muted-olive); }
-    [data-complete="true"] .step-number::after { content: "✓"; font-size: 1rem; }
-
     .card-heading h2 {
       margin: 0 0 0.2rem;
       color: var(--deep-space-blue);
@@ -281,43 +230,6 @@
       transform: translateY(-1px);
     }
 
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      align-items: center;
-      margin-top: 1.1rem;
-    }
-
-    .agreements-actions .document-button { margin-left: auto; }
-
-    .done-button {
-      display: inline-flex;
-      min-height: 46px;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      padding: 0.65rem 1rem;
-      color: var(--deep-space-blue);
-      background: var(--golden-orange);
-      border: 2px solid var(--deep-space-blue);
-      border-radius: var(--radius-small);
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 150ms ease, background 150ms ease;
-    }
-    .done-button:hover { background: #ffb326; transform: translateY(-1px); }
-    [data-complete="true"] .done-button { background: var(--muted-olive); }
-
-    .button-help {
-      flex-basis: 100%;
-      margin: 0;
-      color: var(--text-secondary);
-      font-size: 0.73rem;
-      line-height: 1.45;
-    }
-
     .form-shell {
       margin-top: 1.35rem;
       overflow: hidden;
@@ -342,29 +254,14 @@
       font-size: 0.88rem;
       line-height: 1.62;
     }
-    .next-step strong { color: var(--deep-space-blue); }
-
-    .completion {
-      display: none;
-      margin-top: 1.5rem;
-      padding: 1.6rem;
-      text-align: center;
-      background: var(--floral-white-warm);
-      border: 2px solid var(--golden-orange);
-      border-radius: var(--radius-medium);
-      box-shadow: var(--shadow);
+    .next-step h3 {
+      margin: 0 0 0.35rem;
+      color: var(--deep-space-blue);
+      font-family: var(--font-ui);
+      font-size: 1rem;
     }
-    .completion.visible { display: block; }
-    .completion span { font-size: 2rem; }
-    .completion h2 { margin: 0.35rem 0; color: var(--deep-space-blue); font-size: 1.35rem; }
-    .completion p {
-      margin: 0;
-      color: var(--text-secondary);
-      font-family: var(--font-reading);
-      font-size: 0.86rem;
-      line-height: 1.65;
-    }
-    .completion-link {
+    .next-step p { margin: 0; }
+    .calendar-button {
       display: inline-flex;
       min-height: 44px;
       align-items: center;
@@ -380,7 +277,7 @@
       text-decoration: none;
       transition: transform 150ms ease, background 150ms ease;
     }
-    .completion-link:hover { background: #ffb326; transform: translateY(-1px); }
+    .calendar-button:hover { background: #ffb326; transform: translateY(-1px); }
 
     footer {
       padding: 2rem 1rem;
@@ -392,13 +289,10 @@
 
     @media (max-width: 620px) {
       .hero { padding-top: 2.3rem; }
-      .progress-inner { grid-template-columns: minmax(0,1fr) auto; }
-      .progress-label { display: none; }
       .card-heading, .card-body { padding-left: 1rem; padding-right: 1rem; }
       .card-heading { grid-template-columns: 40px minmax(0,1fr); gap: 0.75rem; }
       .step-number { width: 40px; height: 40px; }
-      .done-button { width: 100%; }
-      .agreements-actions .document-button { margin-left: 0; width: 100%; }
+      .document-button, .calendar-button { width: 100%; }
       .form-shell iframe { min-height: 1150px; }
     }
 
@@ -421,21 +315,13 @@
     <p class="hero-copy">You’ve already told us you’re interested. Now take a few minutes to learn what the role actually looks like—and, if it feels like a good fit, take the next step toward joining the network.</p>
   </header>
 
-  <div class="progress-shell" aria-label="Onboarding progress">
-    <div class="progress-inner">
-      <span class="progress-label">Your next steps</span>
-      <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
-      <span class="progress-count" id="progressCount" aria-live="polite">0 of 2 complete</span>
-    </div>
-  </div>
-
   <main id="main">
     <aside class="welcome">
-      <strong>Thanks for raising your hand.</strong> Start by watching the short orientation below. If the Neighborhood Captain program feels right for you, read and sign the Community Agreements. Once you submit them, the link to register for an in-person onboarding session will appear in the confirmation message in the form. Questions? Email <a href="mailto:info@altagether.org">info@altagether.org</a>.
+      <strong>Thanks for raising your hand.</strong> Watch the short orientation, review the full expectations if you’d like more detail, then read and sign the Community Agreements and register for a live onboarding session. Questions? Email <a href="mailto:info@altagether.org">info@altagether.org</a>.
     </aside>
 
     <div class="journey">
-      <section class="action-card" id="videoCard" data-step="video" data-complete="false" aria-labelledby="videoTitle">
+      <section class="action-card" aria-labelledby="videoTitle">
         <div class="card-heading">
           <div class="step-number" aria-hidden="true">1</div>
           <div>
@@ -455,21 +341,29 @@
               referrerpolicy="strict-origin-when-cross-origin"
               allowfullscreen></iframe>
           </div>
-
-
-          <div class="button-row">
-            <button class="done-button" type="button" data-mark-complete="video">✓ I watched the orientation</button>
-            <p class="button-help">When you’re finished, mark this step complete and move on to the Community Agreements.</p>
-          </div>
         </div>
       </section>
 
-      <section class="action-card" id="agreementsCard" data-step="agreements" data-complete="false" aria-labelledby="agreementsTitle">
+      <section class="action-card" aria-labelledby="expectationsTitle">
         <div class="card-heading">
           <div class="step-number" aria-hidden="true">2</div>
           <div>
+            <h2 id="expectationsTitle">Review the full expectations</h2>
+            <p>Optional · A more detailed look at the role and responsibilities</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>If you’d like more detail before continuing, you can read through the full Neighborhood Captain Expectations.</p>
+          <a class="document-button" href="../Neighborhood Captain Expectations [August 2026].pdf" target="_blank" rel="noopener">Read the full expectations ↗</a>
+        </div>
+      </section>
+
+      <section class="action-card" aria-labelledby="agreementsTitle">
+        <div class="card-heading">
+          <div class="step-number" aria-hidden="true">3</div>
+          <div>
             <h2 id="agreementsTitle">Read &amp; sign the Community Agreements</h2>
-            <p>Shared commitments for how Neighborhood Captains show up for neighbors and for one another</p>
+            <p>Sign the shared commitments, then choose a live onboarding session</p>
           </div>
         </div>
         <div class="card-body">
@@ -484,23 +378,12 @@
           </div>
 
           <div class="next-step">
-            <strong>What happens after you sign?</strong> Once you submit the Community Agreements, the link to register for an in-person onboarding session will appear in the confirmation message in the form above. You must attend an onboarding before becoming a Neighborhood Captain.
-          </div>
-
-          <div class="button-row agreements-actions">
-            <button class="done-button" type="button" data-mark-complete="agreements">✓ I signed the agreements</button>
-            <a class="document-button" href="../Neighborhood Captain Expectations [August 2026].pdf" target="_blank" rel="noopener">Full expectations document ↗</a>
-            <p class="button-help">After submitting the embedded form above, mark this step complete. The registration link will appear in the form’s confirmation message.</p>
+            <h3>Register for a live onboarding session</h3>
+            <p>After signing the Community Agreements, choose a session that works for you. You must attend an onboarding before becoming a Neighborhood Captain.</p>
+            <a class="calendar-button" href="./calendar/" target="_top">View available sessions →</a>
           </div>
         </div>
       </section>
-    </div>
-
-    <div class="completion" id="completion" role="status">
-      <span aria-hidden="true">🌿</span>
-      <h2>You’re ready for onboarding</h2>
-      <p>Your next step is to register for a live onboarding session. Choose a session that works for you—we’re looking forward to meeting you.</p>
-      <a class="completion-link" href="./calendar/" target="_top">View available sessions →</a>
     </div>
   </main>
 
@@ -508,58 +391,7 @@
 
   <script>
     (() => {
-      const STORAGE_KEY = "altagether_new_captain_onboarding";
-      const steps = ["video", "agreements"];
-      const progressFill = document.getElementById("progressFill");
-      const progressCount = document.getElementById("progressCount");
-      const completion = document.getElementById("completion");
       const agreementsForm = document.getElementById("agreementsForm");
-
-      function readState() {
-        try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
-        catch (error) { return {}; }
-      }
-
-      function writeState(state) {
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-        catch (error) {}
-      }
-
-      function render() {
-        const state = readState();
-        let completeCount = 0;
-
-        steps.forEach((step) => {
-          const isComplete = Boolean(state[step]);
-          const card = document.querySelector(`[data-step="${step}"]`);
-          const button = document.querySelector(`[data-mark-complete="${step}"]`);
-          card.dataset.complete = String(isComplete);
-          button.textContent = isComplete
-            ? "↩ Mark as not complete"
-            : step === "video" ? "✓ I watched the orientation" : "✓ I signed the agreements";
-          if (isComplete) completeCount += 1;
-        });
-
-        progressFill.style.width = `${Math.round((completeCount / steps.length) * 100)}%`;
-        progressCount.textContent = `${completeCount} of ${steps.length} complete`;
-        completion.classList.toggle("visible", completeCount === steps.length);
-      }
-
-      document.querySelectorAll("[data-mark-complete]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const step = button.dataset.markComplete;
-          const state = readState();
-          state[step] = !state[step];
-          writeState(state);
-          render();
-
-          if (state[step]) {
-            const currentIndex = steps.indexOf(step);
-            const nextCard = document.querySelector(`[data-step="${steps[currentIndex + 1]}"]`);
-            if (nextCard) nextCard.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        });
-      });
 
       agreementsForm.addEventListener("load", () => {
         try {
@@ -573,8 +405,6 @@
           // The Google Form is cross-origin until it navigates back to this site.
         }
       });
-
-      render();
     })();
   </script>
 </body>
