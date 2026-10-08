@@ -37,6 +37,8 @@
     .hero::before,.hero::after { position:absolute; content:""; border:2px solid rgba(255,255,255,.08); border-radius:50%; pointer-events:none; }
     .hero::before { width:290px;height:290px;top:-210px;left:-50px; }
     .hero::after { width:220px;height:220px;right:-85px;bottom:-160px; }
+    .back-link { position:relative; display:inline-flex; align-items:center; min-height:38px; margin-bottom:1.25rem; padding:.45rem .75rem; color:#fff; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.35); border-radius:var(--radius-small); font-size:.75rem; font-weight:700; text-decoration:none; }
+    .back-link:hover { background:rgba(255,255,255,.16); border-color:rgba(255,255,255,.65); }
     .eyebrow { position:relative; margin:0 0 .7rem; color:var(--golden-orange); font-size:.72rem; font-weight:700; letter-spacing:.09em; text-transform:uppercase; }
     .hero h1 { position:relative; max-width:780px; margin:0 auto .8rem; font-size:clamp(2rem,6vw,3.6rem); font-weight:900; letter-spacing:-.035em; line-height:1.06; }
     .hero-copy { position:relative; max-width:620px; margin:0 auto; color:rgba(255,255,255,.82); font-family:var(--font-reading); font-size:.98rem; line-height:1.72; }
@@ -125,6 +127,7 @@
   <a class="skip-link" href="#main">Skip to onboarding sessions</a>
 
   <header class="hero">
+    <a class="back-link" href="../">← Back to Becoming a Neighborhood Captain</a>
     <p class="eyebrow">Altagether · Neighborhood Captain Program</p>
     <h1>Choose your onboarding session</h1>
     <p class="hero-copy">You’re almost there. Choose a live Zoom onboarding session below to learn more, ask questions, and get ready to begin as a Neighborhood Captain.</p>
@@ -153,35 +156,8 @@
     </section>
 
     <div class="desktop-calendars calendar-stack">
-      <section class="month-card" aria-labelledby="sepTitle">
-        <div class="month-title"><h3 id="sepTitle">September 2026</h3><span>5 sessions</span></div>
-        <div class="weekday-row" aria-hidden="true">
-          <div class="weekday">Sun</div><div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div>
-        </div>
-        <div class="month-grid">
-          <div class="day empty"></div><div class="day empty"></div>
-          <div class="day"><span class="date-num">1</span></div><div class="day"><span class="date-num">2</span></div><div class="day"><span class="date-num">3</span></div><div class="day"><span class="date-num">4</span></div><div class="day"><span class="date-num">5</span></div>
-          <div class="day"><span class="date-num">6</span></div><div class="day"><span class="date-num">7</span></div><div class="day"><span class="date-num">8</span></div><div class="day"><span class="date-num">9</span></div>
-          <div class="day"><span class="date-num">10</span></div>
-          <div class="day"><span class="date-num">11</span></div>
-          <div class="day"><span class="date-num">12</span></div>
-          <div class="day"><span class="date-num">13</span></div><div class="day"><span class="date-num">14</span></div><div class="day"><span class="date-num">15</span></div>
-          <div class="day has-session" data-session-date="2026-09-16"><span class="date-num">16</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/T5LH-wUYSvCNaC-gSLiWVg" target="_blank" rel="noopener">5:00 PM<small>Register →</small></a></div>
-          <div class="day has-session" data-session-date="2026-09-17"><span class="date-num">17</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/hEJep8SoT_SKTMHbiV54wQ" target="_blank" rel="noopener">1:00 PM<small>Register →</small></a></div>
-          <div class="day"><span class="date-num">18</span></div><div class="day"><span class="date-num">19</span></div>
-          <div class="day"><span class="date-num">20</span></div>
-          <div class="day has-session" data-session-date="2026-09-21"><span class="date-num">21</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/o0vK3NfKQXedCIK9kLj11A" target="_blank" rel="noopener">6:00 PM<small>Register →</small></a></div>
-          <div class="day"><span class="date-num">22</span></div>
-          <div class="day has-session" data-session-date="2026-09-23"><span class="date-num">23</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/BcrLfQb0Qlq0WwI5HlzqFA" target="_blank" rel="noopener">12:00 PM<small>Register →</small></a></div>
-          <div class="day"><span class="date-num">24</span></div><div class="day"><span class="date-num">25</span></div><div class="day"><span class="date-num">26</span></div>
-          <div class="day"><span class="date-num">27</span></div><div class="day"><span class="date-num">28</span></div><div class="day"><span class="date-num">29</span></div>
-          <div class="day has-session" data-session-date="2026-09-30"><span class="date-num">30</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/odGKa33zTC2DHDzbxK_IDw" target="_blank" rel="noopener">2:00 PM<small>Register →</small></a></div>
-          <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-        </div>
-      </section>
-
       <section class="month-card" aria-labelledby="octTitle">
-        <div class="month-title"><h3 id="octTitle">October 2026</h3><span>2 sessions</span></div>
+        <div class="month-title"><h3 id="octTitle">October 2026</h3><span>5 sessions</span></div>
         <div class="weekday-row" aria-hidden="true">
           <div class="weekday">Sun</div><div class="weekday">Mon</div><div class="weekday">Tue</div><div class="weekday">Wed</div><div class="weekday">Thu</div><div class="weekday">Fri</div><div class="weekday">Sat</div>
         </div>
@@ -192,29 +168,28 @@
           <div class="day"><span class="date-num">4</span></div><div class="day"><span class="date-num">5</span></div><div class="day"><span class="date-num">6</span></div><div class="day"><span class="date-num">7</span></div>
           <div class="day has-session" data-session-date="2026-10-08"><span class="date-num">8</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/ievNxLm4QYSDjEYRchUahw" target="_blank" rel="noopener">11:00 AM<small>Register →</small></a></div>
           <div class="day"><span class="date-num">9</span></div><div class="day"><span class="date-num">10</span></div>
-          <div class="day"><span class="date-num">11</span></div><div class="day"><span class="date-num">12</span></div><div class="day"><span class="date-num">13</span></div><div class="day"><span class="date-num">14</span></div><div class="day"><span class="date-num">15</span></div><div class="day"><span class="date-num">16</span></div><div class="day"><span class="date-num">17</span></div>
-          <div class="day"><span class="date-num">18</span></div><div class="day"><span class="date-num">19</span></div><div class="day"><span class="date-num">20</span></div><div class="day"><span class="date-num">21</span></div><div class="day"><span class="date-num">22</span></div><div class="day"><span class="date-num">23</span></div><div class="day"><span class="date-num">24</span></div>
-          <div class="day"><span class="date-num">25</span></div><div class="day"><span class="date-num">26</span></div><div class="day"><span class="date-num">27</span></div><div class="day"><span class="date-num">28</span></div><div class="day"><span class="date-num">29</span></div><div class="day"><span class="date-num">30</span></div><div class="day"><span class="date-num">31</span></div>
+          <div class="day"><span class="date-num">11</span></div><div class="day"><span class="date-num">12</span></div><div class="day"><span class="date-num">13</span></div>
+          <div class="day has-session" data-session-date="2026-10-14"><span class="date-num">14</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/C0c_pdDKRum6Wd6IGIETig" target="_blank" rel="noopener">5:30–6:30 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">15</span></div><div class="day"><span class="date-num">16</span></div><div class="day"><span class="date-num">17</span></div>
+          <div class="day"><span class="date-num">18</span></div><div class="day"><span class="date-num">19</span></div><div class="day"><span class="date-num">20</span></div><div class="day"><span class="date-num">21</span></div>
+          <div class="day has-session" data-session-date="2026-10-22"><span class="date-num">22</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/jriW2ZekTFy8HCkkSph9Wg" target="_blank" rel="noopener">6:00–7:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">23</span></div><div class="day"><span class="date-num">24</span></div>
+          <div class="day"><span class="date-num">25</span></div><div class="day"><span class="date-num">26</span></div>
+          <div class="day has-session" data-session-date="2026-10-27"><span class="date-num">27</span><a class="session-link" href="https://us06web.zoom.us/meeting/register/My_OLxZ6QF-LVZEjScObpQ" target="_blank" rel="noopener">5:00–6:00 PM<small>Register →</small></a></div>
+          <div class="day"><span class="date-num">28</span></div><div class="day"><span class="date-num">29</span></div><div class="day"><span class="date-num">30</span></div><div class="day"><span class="date-num">31</span></div>
         </div>
       </section>
     </div>
 
     <div class="mobile-agenda" aria-label="Onboarding sessions">
       <section class="agenda-month">
-        <h3>September 2026</h3>
-        <div class="agenda-list">
-          <a class="agenda-row" data-session-date="2026-09-16" href="https://us06web.zoom.us/meeting/register/T5LH-wUYSvCNaC-gSLiWVg" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 16</span><span class="agenda-time"><span>5:00 PM</span><span>Register →</span></span></a>
-          <a class="agenda-row" data-session-date="2026-09-17" href="https://us06web.zoom.us/meeting/register/hEJep8SoT_SKTMHbiV54wQ" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Sep 17</span><span class="agenda-time"><span>1:00 PM</span><span>Register →</span></span></a>
-          <a class="agenda-row" data-session-date="2026-09-21" href="https://us06web.zoom.us/meeting/register/o0vK3NfKQXedCIK9kLj11A" target="_blank" rel="noopener"><span class="agenda-date">Mon<br>Sep 21</span><span class="agenda-time"><span>6:00 PM</span><span>Register →</span></span></a>
-          <a class="agenda-row" data-session-date="2026-09-23" href="https://us06web.zoom.us/meeting/register/BcrLfQb0Qlq0WwI5HlzqFA" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 23</span><span class="agenda-time"><span>12:00 PM</span><span>Register →</span></span></a>
-          <a class="agenda-row" data-session-date="2026-09-30" href="https://us06web.zoom.us/meeting/register/odGKa33zTC2DHDzbxK_IDw" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Sep 30</span><span class="agenda-time"><span>2:00 PM</span><span>Register →</span></span></a>
-        </div>
-      </section>
-      <section class="agenda-month">
         <h3>October 2026</h3>
         <div class="agenda-list">
           <a class="agenda-row" data-session-date="2026-10-01" href="https://us06web.zoom.us/meeting/register/vZCuRGd7SJGJLcyNfi5GZA" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Oct 1</span><span class="agenda-time"><span>6:00 PM</span><span>Register →</span></span></a>
           <a class="agenda-row" data-session-date="2026-10-08" href="https://us06web.zoom.us/meeting/register/ievNxLm4QYSDjEYRchUahw" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Oct 8</span><span class="agenda-time"><span>11:00 AM</span><span>Register →</span></span></a>
+          <a class="agenda-row" data-session-date="2026-10-14" href="https://us06web.zoom.us/meeting/register/C0c_pdDKRum6Wd6IGIETig" target="_blank" rel="noopener"><span class="agenda-date">Wed<br>Oct 14</span><span class="agenda-time"><span>5:30–6:30 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" data-session-date="2026-10-22" href="https://us06web.zoom.us/meeting/register/jriW2ZekTFy8HCkkSph9Wg" target="_blank" rel="noopener"><span class="agenda-date">Thu<br>Oct 22</span><span class="agenda-time"><span>6:00–7:00 PM</span><span>Register →</span></span></a>
+          <a class="agenda-row" data-session-date="2026-10-27" href="https://us06web.zoom.us/meeting/register/My_OLxZ6QF-LVZEjScObpQ" target="_blank" rel="noopener"><span class="agenda-date">Tue<br>Oct 27</span><span class="agenda-time"><span>5:00–6:00 PM</span><span>Register →</span></span></a>
         </div>
       </section>
     </div>
