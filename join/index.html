@@ -230,18 +230,103 @@
       transform: translateY(-1px);
     }
 
-    .form-shell {
-      margin-top: 1.35rem;
-      overflow: hidden;
+    .agreements-panel {
+      margin-top: 1.25rem;
+      padding: 1.35rem 1.4rem;
+      background: var(--floral-white-warm);
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--golden-orange);
       border-radius: var(--radius-small);
     }
-    .form-shell iframe {
-      display: block;
-      width: 100%;
-      min-height: 1024px;
-      border: 0;
-      background: #fff;
+    .agreements-panel ol {
+      display: grid;
+      gap: 0.8rem;
+      margin: 0;
+      padding-left: 1.4rem;
+      color: var(--text-secondary);
+      font-family: var(--font-reading);
+      font-size: 0.9rem;
+      line-height: 1.65;
     }
+    .agreements-panel li::marker {
+      color: var(--deep-space-blue);
+      font-family: var(--font-ui);
+      font-weight: 900;
+    }
+
+    .signature-form {
+      margin-top: 1.25rem;
+      padding: 1.25rem 1.3rem;
+      background: #fff;
+      border: 2px solid var(--deep-space-blue);
+      border-radius: var(--radius-small);
+    }
+    .signature-form label {
+      display: block;
+      margin-bottom: 0.45rem;
+      color: var(--deep-space-blue);
+      font-size: 0.88rem;
+      font-weight: 900;
+    }
+    .signature-help {
+      margin: 0 0 0.85rem;
+      color: var(--text-secondary);
+      font-family: var(--font-reading);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+    .signature-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.7rem;
+      align-items: stretch;
+    }
+    .signature-row input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.7rem 0.8rem;
+      color: var(--text-primary);
+      background: var(--surface-white);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-small);
+      font: inherit;
+    }
+    .signature-row input:focus {
+      border-color: var(--golden-orange);
+      outline: 3px solid rgba(245, 158, 9, 0.2);
+      outline-offset: 1px;
+    }
+    .signature-submit {
+      min-height: 46px;
+      padding: 0.7rem 1rem;
+      color: var(--deep-space-blue);
+      background: var(--golden-orange);
+      border: 2px solid var(--deep-space-blue);
+      border-radius: var(--radius-small);
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+    .signature-submit:hover { background: #ffb326; transform: translateY(-1px); }
+    .signature-submit:disabled { cursor: wait; opacity: 0.7; transform: none; }
+    .signature-form.is-complete .signature-help,
+    .signature-form.is-complete .signature-row { display: none; }
+    .form-status {
+      display: none;
+      margin: 1rem 0 0;
+      padding: 0.85rem 0.95rem;
+      color: var(--deep-space-blue);
+      background: rgba(175,200,146,.3);
+      border-left: 4px solid var(--olive-deep);
+      border-radius: var(--radius-small);
+      font-family: var(--font-reading);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+    .form-status.is-visible { display: block; }
+    .submission-frame { display: none; }
 
     .next-step {
       margin-top: 1.35rem;
@@ -293,7 +378,9 @@
       .card-heading { grid-template-columns: 40px minmax(0,1fr); gap: 0.75rem; }
       .step-number { width: 40px; height: 40px; }
       .document-button, .calendar-button { width: 100%; }
-      .form-shell iframe { min-height: 1208px; }
+      .agreements-panel, .signature-form { padding-left: 1rem; padding-right: 1rem; }
+      .signature-row { grid-template-columns: 1fr; }
+      .signature-submit { width: 100%; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -369,13 +456,34 @@
         <div class="card-body">
           <p>If you’d like to continue, please read the agreements below.</p>
 
-          <div class="form-shell">
-            <iframe
-              id="agreementsForm"
-              src="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/viewform?embedded=true"
-              title="Altagether Community Agreements signature form"
-              loading="lazy">Loading…</iframe>
+          <div class="agreements-panel">
+            <ol>
+              <li>Treat everyone with respect and compassion.</li>
+              <li>Share information and resources openly with your neighbors unless they’ve directly asked you not to.</li>
+              <li>Be there for all your neighbors, even if you disagree on specific issues or topics.</li>
+              <li>Make a good faith effort to represent your whole neighborhood, not just your personal views or preferred outcomes.</li>
+              <li>Share accurate, timely information and avoid spreading rumors or unverified claims. Do the due diligence to be able to stand behind what you share.</li>
+              <li>Speak for yourself. Don’t speak on behalf of Altagether or other Neighborhood Captains without explicit permission—whether to the press, online, or out in the community.</li>
+              <li>When disagreements arise, model patience and respectfulness.</li>
+              <li>Acknowledge and respect different recovery paths. Whether someone chooses to rebuild, relocate, or sell, treat their decisions with grace, understanding, and without judgment.</li>
+            </ol>
           </div>
+
+          <form
+            id="communityAgreementsForm"
+            class="signature-form"
+            action="https://docs.google.com/forms/d/e/1FAIpQLSfI1sg7Xpk5KK5qrKxlBwz5gpA5ao7fXzRNEpjeN2LB1cJ-vQ/formResponse"
+            method="post"
+            target="submissionFrame">
+            <label for="signatureName">Type your name to sign</label>
+            <p class="signature-help">By signing, you agree to follow the Community Agreements above in your role as a Neighborhood Captain.</p>
+            <div class="signature-row">
+              <input id="signatureName" name="entry.1449287748" type="text" autocomplete="name" required>
+              <button class="signature-submit" type="submit">Sign agreements →</button>
+            </div>
+            <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+          </form>
+          <iframe class="submission-frame" id="submissionFrame" name="submissionFrame" title="Community Agreements submission response"></iframe>
 
           <div class="next-step">
             <h3>Register for a live onboarding session</h3>
@@ -391,19 +499,26 @@
 
   <script>
     (() => {
-      const agreementsForm = document.getElementById("agreementsForm");
+      const form = document.getElementById("communityAgreementsForm");
+      const submissionFrame = document.getElementById("submissionFrame");
+      const submitButton = form.querySelector(".signature-submit");
+      const status = document.getElementById("formStatus");
+      let submissionStarted = false;
 
-      agreementsForm.addEventListener("load", () => {
-        try {
-          const destination = new URL(agreementsForm.contentWindow.location.href);
-          const calendarPath = destination.pathname.replace(/\/+$/, "");
+      form.addEventListener("submit", () => {
+        submissionStarted = true;
+        submitButton.disabled = true;
+        submitButton.textContent = "Signing…";
+        status.textContent = "Submitting your signature…";
+        status.classList.add("is-visible");
+      });
 
-          if (destination.origin === window.location.origin && calendarPath === "/join/calendar") {
-            window.location.assign(`${destination.pathname}${destination.search}${destination.hash}`);
-          }
-        } catch (error) {
-          // The Google Form is cross-origin until it navigates back to this site.
-        }
+      submissionFrame.addEventListener("load", () => {
+        if (!submissionStarted) return;
+
+        form.reset();
+        form.classList.add("is-complete");
+        status.textContent = "Thank you—your Community Agreements signature has been recorded. You can now register for a live onboarding session below.";
       });
     })();
   </script>
